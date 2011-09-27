@@ -71,7 +71,7 @@ class CodeBlender_View_Helper_Google_AjaxLibraries extends Zend_View_Helper_Abst
         }
 
         // Append the Facebook Feature Loader
-        $this->view->headScript()->prependFile('http://www.google.com/jsapi', 'text/javascript');
+        $this->view->headScript()->prependFile('https://www.google.com/jsapi', 'text/javascript');
 
         // Check if a version is supplied
         if (!empty($this->params['version'])) {
