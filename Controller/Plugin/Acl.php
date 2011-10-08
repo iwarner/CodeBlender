@@ -60,13 +60,13 @@ class CodeBlender_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         if (empty($access)) {
 
             // Get the config
-            $config = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('users');
+            $config = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('user');
 
             // See if the user has specified a different place to redirect users too.
             if (isset($config['noAccess'])) {
                 $request->setModuleName($config['noAccess']['module'])->setControllerName($config['noAccess']['controller'])->setActionName($config['noAccess']['action']);
             } else {
-                $request->setModuleName('users')->setControllerName('login')->setActionName('index');
+                $request->setModuleName('user')->setControllerName('login')->setActionName('index');
             }
         }
 

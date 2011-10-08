@@ -29,7 +29,7 @@ class CodeBlender_View_Helper_Layout_LoginForm extends Zend_Form
     {
         // Set ID of the form
         $this->setName('loginForm');
-        $this->setAction('/users/login');
+        $this->setAction('/user/login');
 
         // Elements for the Credenials Group
         $this->addElement('text', 'loginEmail', array(
