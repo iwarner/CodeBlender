@@ -40,6 +40,8 @@ class CodeBlender_View_Helper_Facebook_JavascriptSDK
 
                     window.fbAsyncInit = function()
                     {
+                        FB._https = true;
+
                         FB.init({
                             appId  : {$config['appID']},
                             oauth  : true,
