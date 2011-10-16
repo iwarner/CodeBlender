@@ -233,6 +233,8 @@ abstract class CodeBlender_Rest_Controller extends Zend_Rest_Controller
         if (!$this->_getParam('callback')) {
             $this->_helper->json($dataArray);
         } else {
+            $this->_helper->layout()->disableLayout();
+            $this->_helper->viewRenderer->setNoRender(true);
             echo $this->_getParam('callback') . '(' . Zend_Json::encode($dataArray) . ');';
         }
     }
