@@ -34,6 +34,153 @@ abstract class CodeBlender_Rest_Controller extends Zend_Rest_Controller
     }
 
     /**
+     * Decode JSON
+     */
+    public function decodeJSON()
+    {
+        try {
+            $paramaters = Zend_Json::decode($this->getRequest()->getRawBody());
+            return $paramaters;
+        } catch (Zend_Exception $e) {
+            $this->errorDecode($e->getMessage());
+        }
+    }
+
+    /**
+     * Error
+     * Access Token invalid - Response Code - 401
+     */
+    public function errorAccessToken($message = false)
+    {
+        if ($message) {
+            $message = $message;
+        } else {
+            $message = 'access_token not found in database';
+        }
+
+        // Add the processed JSON to the body
+        $dataArray = array(
+            'success' => false,
+            'message' => $message
+        );
+
+        // Send JSON
+        $this->sendJSON($dataArray, 401);
+    }
+
+    /**
+     * Error
+     * Insert Failed Due to Validation - Response Code 500
+     */
+    public function errorInsert($message = false)
+    {
+        if ($message) {
+            $message = $message;
+        } else {
+            $message = 'Validation Failed';
+        }
+
+        // Add the processed JSON to the body
+        $dataArray = array(
+            'success' => false,
+            'message' => $message
+        );
+
+        // Send JSON
+        $this->sendJSON($dataArray, 500);
+    }
+
+    /**
+     * Error
+     * Invalid attributes - Response Code 400
+     */
+    public function errorInvalidAttributes($message = false)
+    {
+        if ($message) {
+            $message = $message;
+        } else {
+            $message = 'Invalid Attributes';
+        }
+
+        // Add the processed JSON to the body
+        $dataArray = array(
+            'success' => false,
+            'message' => $message
+        );
+
+        $this->sendJSON($dataArray, 400);
+    }
+
+    /**
+     * Action
+     * Failed Dependancy - Response Code 424
+     */
+    public function errorFailedDependancy($message = false)
+    {
+        if ($message) {
+            $message = $message;
+        } else {
+            $message = 'Reverse Geocode service failed to return a valid response';
+        }
+
+        // Add the processed JSON to the body
+        $dataArray = array(
+            'success' => false,
+            'message' => $message
+        );
+
+        $this->sendJSON($dataArray, 424);
+    }
+
+    /**
+     * Error
+     * JSON Decode issue - Response Code 400
+     */
+    public function errorDecode($message = false)
+    {
+        if ($message) {
+            $message = $message;
+        } else {
+            $message = 'JSON Decode failed';
+        }
+
+        // Add the processed JSON to the body
+        $dataArray = array(
+            'success' => false,
+            'message' => $message
+        );
+
+        $this->sendJSON($dataArray, 400);
+    }
+
+    /**
+     * Error
+     * Method not found - Response Code 405
+     */
+    public function errorNoMethod()
+    {
+        // Add the processed JSON to the body
+        $dataArray = array(
+            'success' => false,
+            'message' => 'Method not valid - ' . $this->_getParam('action')
+        );
+
+        $this->sendJSON($dataArray, 405);
+    }
+
+    /**
+     * Send JSON
+     */
+    protected function sendJSON($dataArray, $responseCode)
+    {
+        $dataArray['serverTime'] = time();
+
+        $this->_response->setHttpResponseCode($responseCode);
+        $this->_helper->json($dataArray);
+        return;
+    }
+
+    /**
      * The index action handles index/list requests; it should respond with a
      * list of the requested resources.
      *
