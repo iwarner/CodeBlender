@@ -4,7 +4,7 @@
  *
  * @category  CodeBlender
  * @package   CodeBlender_ExtJS
- * @copyright Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 
@@ -19,7 +19,7 @@
  *
  * @category  CodeBlender
  * @package   CodeBlender_ExtJS
- * @copyright Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 class CodeBlender_ExtJS
@@ -27,7 +27,7 @@ class CodeBlender_ExtJS
     /**
      *  @const string Available ExtJS Version
      */
-    const EXTJS_VERSION = 'ext-3.3.1';
+    const EXTJS_VERSION = 'extjs';
 
     /**
      * ExtJS-enable a view instance

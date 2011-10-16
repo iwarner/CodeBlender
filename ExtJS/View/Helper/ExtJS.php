@@ -4,7 +4,7 @@
  *
  * @category  CodeBlender
  * @package   CodeBlender_ExtJS
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 
@@ -17,7 +17,7 @@
  *
  * @category  CodeBlender
  * @package   CodeBlender_ExtJS
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 class CodeBlender_ExtJS_View_Helper_ExtJS
@@ -85,8 +85,7 @@ class CodeBlender_ExtJS_View_Helper_ExtJS
     public function __call($method, $args)
     {
         if (!method_exists($this->_container, $method)) {
-            require_once 'Zend/ExtJS/View/Exception.php';
-            throw new CodeBlender_ExtJS_View_Exception(sprintf('Invalid method "%s" called on extjs view helper', $method));
+            throw new Zend_Exception(sprintf('Invalid method "%s" called on extjs view helper', $method));
         }
 
         return call_user_func_array(array($this->_container, $method), $args);
