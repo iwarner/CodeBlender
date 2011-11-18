@@ -3,7 +3,7 @@
  * CodeBlender
  *
  * @category  CodeBlender
- * @package   Version
+ * @package   CodeBlender_Version
  * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
@@ -12,7 +12,7 @@
  * Version
  *
  * @category  CodeBlender
- * @package   Version
+ * @package   CodeBlender_Version
  * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
@@ -21,7 +21,7 @@ final class CodeBlender_Version
     /**
      * CodeBlender version identification - see compareVersion()
      */
-    const VERSION = '0.0.5';
+    const VERSION = '0.0.2';
 
     /**
      * Compare the specified CodeBlender version string $version

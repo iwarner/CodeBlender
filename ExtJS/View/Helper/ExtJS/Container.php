@@ -67,7 +67,7 @@ class CodeBlender_ExtJS_View_Helper_ExtJS_Container extends Zend_View_Helper_Abs
         // Append the Core JavaScript Files
         $this->view->headScript()->offsetSetFile(1, $this->view->jsPath . '/' . $this->_extVersion . '/adapter/ext/ext-base.js', 'text/javascript');
         $this->view->headScript()->offsetSetFile(2, $this->view->jsPath . '/' . $this->_extVersion . '/ext-all.js', 'text/javascript');
-        $this->view->headScript()->offsetSetFile(1000, $this->view->themePath . '/js/extjs/core.js', 'text/javascript');
+        $this->view->headScript()->offsetSetFile(1000, $this->view->themePath . '/default/js/extjs/core.js', 'text/javascript');
 
         return $this;
     }
@@ -79,7 +79,7 @@ class CodeBlender_ExtJS_View_Helper_ExtJS_Container extends Zend_View_Helper_Abs
      */
     public function rowExpander()
     {
-        $this->view->headScript()->offsetSetFile(40, $this->view->jsPath . '/' . $this->_extVersion . '/ux/RowExpander.js', 'text/javascript');
+        $this->view->headScript()->offsetSetFile(40, $this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/RowExpander.js', 'text/javascript');
 
         return $this;
     }
@@ -91,7 +91,7 @@ class CodeBlender_ExtJS_View_Helper_ExtJS_Container extends Zend_View_Helper_Abs
      */
     public function checkColumn()
     {
-        $this->view->headScript()->offsetSetFile(50, $this->view->jsPath . '/' . $this->_extVersion . '/ux/CheckColumn.js', 'text/javascript');
+        $this->view->headScript()->offsetSetFile(50, $this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/CheckColumn.js', 'text/javascript');
 
         return $this;
     }
@@ -103,8 +103,8 @@ class CodeBlender_ExtJS_View_Helper_ExtJS_Container extends Zend_View_Helper_Abs
      */
     public function fileUploadField()
     {
-        $this->view->headLink()->prependStylesheet($this->view->jsPath . '/' . $this->_extVersion . '/ux/fileuploadfield/css/fileuploadfield.css');
-        $this->view->headScript()->offsetSetFile(60, $this->view->jsPath . '/' . $this->_extVersion . '/ux/fileuploadfield/FileUploadField.js', 'text/javascript');
+        $this->view->headLink()->prependStylesheet($this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/fileuploadfield/css/fileuploadfield.css');
+        $this->view->headScript()->offsetSetFile(60, $this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/fileuploadfield/FileUploadField.js', 'text/javascript');
 
         return $this;
     }
@@ -116,20 +116,20 @@ class CodeBlender_ExtJS_View_Helper_ExtJS_Container extends Zend_View_Helper_Abs
      */
     public function gridFilter()
     {
-        $this->view->headLink()->prependStylesheet($this->view->jsPath . '/' . $this->_extVersion . '/ux/gridfilters/css/GridFilters.css');
-        $this->view->headLink()->prependStylesheet($this->view->jsPath . '/' . $this->_extVersion . '/ux/gridfilters/css/RangeMenu.css');
+        $this->view->headLink()->prependStylesheet($this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/gridfilters/css/GridFilters.css');
+        $this->view->headLink()->prependStylesheet($this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/gridfilters/css/RangeMenu.css');
 
-        $this->view->headScript()->offsetSetFile(70, $this->view->jsPath . '/' . $this->_extVersion . '/ux/gridfilters/menu/RangeMenu.js', 'text/javascript');
-        $this->view->headScript()->offsetSetFile(71, $this->view->jsPath . '/' . $this->_extVersion . '/ux/gridfilters/menu/ListMenu.js', 'text/javascript');
+        $this->view->headScript()->offsetSetFile(70, $this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/gridfilters/menu/RangeMenu.js', 'text/javascript');
+        $this->view->headScript()->offsetSetFile(71, $this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/gridfilters/menu/ListMenu.js', 'text/javascript');
 
-        $this->view->headScript()->offsetSetFile(72, $this->view->jsPath . '/' . $this->_extVersion . '/ux/gridfilters/GridFilters.js', 'text/javascript');
+        $this->view->headScript()->offsetSetFile(72, $this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/gridfilters/GridFilters.js', 'text/javascript');
 
-        $this->view->headScript()->offsetSetFile(73, $thi->jsPath . '/' . $this->_extVersion . '/ux/gridfilters/filter/Filter.js', 'text/javascript');
-        $this->view->headScript()->offsetSetFile(74, $this->view->jsPath . '/' . $this->_extVersion . '/ux/gridfilters/filter/StringFilter.js', 'text/javascript');
-        $this->view->headScript()->offsetSetFile(75, $this->view->jsPath . '/' . $this->_extVersion . '/ux/gridfilters/filter/DateFilter.js', 'text/javascript');
-        $this->view->headScript()->offsetSetFile(76, $this->view->jsPath . '/' . $this->_extVersion . '/ux/gridfilters/filter/ListFilter.js', 'text/javascript');
-        $this->view->headScript()->offsetSetFile(77, $this->view->jsPath . '/' . $this->_extVersion . '/ux/gridfilters/filter/NumericFilter.js', 'text/javascript');
-        $this->view->headScript()->offsetSetFile(78, $this->view->jsPath . '/' . $this->_extVersion . '/ux/gridfilters/filter/BooleanFilter.js', 'text/javascript');
+        $this->view->headScript()->offsetSetFile(73, $thi->jsPath . '/' . $this->_extVersion . '/examples/ux/gridfilters/filter/Filter.js', 'text/javascript');
+        $this->view->headScript()->offsetSetFile(74, $this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/gridfilters/filter/StringFilter.js', 'text/javascript');
+        $this->view->headScript()->offsetSetFile(75, $this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/gridfilters/filter/DateFilter.js', 'text/javascript');
+        $this->view->headScript()->offsetSetFile(76, $this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/gridfilters/filter/ListFilter.js', 'text/javascript');
+        $this->view->headScript()->offsetSetFile(77, $this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/gridfilters/filter/NumericFilter.js', 'text/javascript');
+        $this->view->headScript()->offsetSetFile(78, $this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/gridfilters/filter/BooleanFilter.js', 'text/javascript');
 
         return $this;
     }
@@ -141,8 +141,8 @@ class CodeBlender_ExtJS_View_Helper_ExtJS_Container extends Zend_View_Helper_Abs
      */
     public function rowEditor()
     {
-        $this->view->headLink()->prependStylesheet($this->view->jsPath . '/' . $this->_extVersion . '/ux/css/RowEditor.css');
-        $this->view->headScript()->offsetSetFile(80, $this->view->jsPath . '/' . $this->_extVersion . '/ux/RowEditor.js', 'text/javascript');
+        $this->view->headLink()->prependStylesheet($this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/css/RowEditor.css');
+        $this->view->headScript()->offsetSetFile(80, $this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/RowEditor.js', 'text/javascript');
 
         return $this;
     }
@@ -154,8 +154,8 @@ class CodeBlender_ExtJS_View_Helper_ExtJS_Container extends Zend_View_Helper_Abs
      */
     public function fieldReplicator()
     {
-        $this->view->headScript()->offsetSetFile(90, $this->view->jsPath . '/' . $this->_extVersion . '/ux/FieldLabeler.js', 'text/javascript');
-        $this->view->headScript()->offsetSetFile(91, $this->view->jsPath . '/' . $this->_extVersion . '/ux/FieldReplicator.js', 'text/javascript');
+        $this->view->headScript()->offsetSetFile(90, $this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/FieldLabeler.js', 'text/javascript');
+        $this->view->headScript()->offsetSetFile(91, $this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/FieldReplicator.js', 'text/javascript');
 
         return $this;
     }
@@ -167,9 +167,9 @@ class CodeBlender_ExtJS_View_Helper_ExtJS_Container extends Zend_View_Helper_Abs
      */
     public function spinnerField()
     {
-        $this->view->headLink()->appendStylesheet($this->view->jsPath . '/' . $this->_extVersion . '/ux/css/Spinner.css');
-        $this->view->headScript()->offsetSetFile(92, $this->view->jsPath . '/' . $this->_extVersion . '/ux/Spinner.js', 'text/javascript');
-        $this->view->headScript()->offsetSetFile(93, $this->view->jsPath . '/' . $this->_extVersion . '/ux/SpinnerField.js', 'text/javascript');
+        $this->view->headLink()->appendStylesheet($this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/css/Spinner.css');
+        $this->view->headScript()->offsetSetFile(92, $this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/Spinner.js', 'text/javascript');
+        $this->view->headScript()->offsetSetFile(93, $this->view->jsPath . '/' . $this->_extVersion . '/examples/ux/SpinnerField.js', 'text/javascript');
 
         return $this;
     }
