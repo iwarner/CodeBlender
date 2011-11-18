@@ -1,30 +1,34 @@
 <?php
+
 /**
  * CodeBlender
  *
  * @category   CodeBlender
- * @package    Helpers
- * @subpackage Google
- * @copyright  Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @package    Helper
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://codeblender.net/license
  */
 
 /**
- * Google Adsense
+ * Helper
+ *
+ * Config Options
+ * google.adsenseID = ""
  *
  * <code>
- * // Include the Google Analytics Tracking icon
- * $this->google_Adsense();
+ * // Google Adsense
+ * echo $this->google_Adsense();
  * </code>
  *
  * @category   CodeBlender
- * @package    Helpers
- * @subpackage Google
- * @copyright  Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @package    Helper
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://codeblender.net/license
+ * @see
  */
-class CodeBlender_View_Helper_Google_Adsense
+class CodeBlender_View_Helper_Google_Adsense extends Zend_View_Helper_Abstract
 {
+
     /**
      * The Publisher ID
      *
@@ -54,10 +58,7 @@ class CodeBlender_View_Helper_Google_Adsense
     protected $width = 468;
 
     /**
-     * Method to generate the needed google code for the required Ad Slot.
-     *
-     * @param  array  $params Array of attribute values
-     * @return string
+     * googleAdsense
      */
     public function google_Adsense($params = array())
     {
@@ -67,29 +68,27 @@ class CodeBlender_View_Helper_Google_Adsense
         // If the client ID is blank then use the one from the config
         if (empty($params['client'])) {
 
-            // Invoke the config
-            $config = Zend_Registry::get('config');
+            // Config
+            $config = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('google');
 
-            // Set the Adsense client ID
-            $params['client'] = $config->google->Adsense;
+            // Adsense client ID
+            $params['client'] = $config['adsenseID'];
         }
 
-
         $string = <<<HTML
-         <script type="text/javascript">
-         <!--
-          google_ad_client = "{$params['client']}";
-          google_ad_slot   = "{$params['slot']}";
-          google_ad_width  = {$params['width']};
-          google_ad_height = {$params['height']};
-         //-->
-         </script>
+            <script type="text/javascript">
+            <!--
+                google_ad_client = "{$params['client']}";
+                google_ad_slot   = "{$params['slot']}";
+                google_ad_width  = {$params['width']};
+                google_ad_height = {$params['height']};
+            //-->
+            </script>
 
-         <script type="text/javascript"
-          src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-         </script>
+            <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 HTML;
 
         return $string;
     }
+
 }

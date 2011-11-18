@@ -5,7 +5,7 @@
  *
  * @category  CodeBlender
  * @package   Plugin
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 
@@ -39,13 +39,14 @@
  *
  * @category  CodeBlender
  * @package   Plugin
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  *
  * @todo Test this works with the latest Facebook PHP SDK
  */
 class CodeBlender_Controller_Plugin_Facebook extends Zend_Controller_Plugin_Abstract
 {
+
     /**
      * Method to create and manage the session data
      *
@@ -62,13 +63,13 @@ class CodeBlender_Controller_Plugin_Facebook extends Zend_Controller_Plugin_Abst
 
         // Process the required options.
         $social->createSocialClass()
-               ->requireLogin(array(
-                   'fbconnect'  => 0,
-                   'canvas'     => 1,
-                   'next'       => $config->facebook->path,
-                   'cancel_url' => $config->facebook->path,
-                   'req_perms'  => $config->facebook->perms
-                ));
+            ->requireLogin(array(
+                'fbconnect' => 0,
+                'canvas' => 1,
+                'next' => $config->facebook->path,
+                'cancel_url' => $config->facebook->path,
+                'req_perms' => $config->facebook->perms
+            ));
 
         // Set up the session environment
         $session = new Zend_Session_Namespace(Zend_Registry::get('siteName'));
@@ -81,7 +82,7 @@ class CodeBlender_Controller_Plugin_Facebook extends Zend_Controller_Plugin_Abst
             if ($social->session) {
 
                 // Create the Facebook elements
-                $session->userID      = $social->session['uid'];
+                $session->userID = $social->session['uid'];
                 $session->accessToken = $social->session['access_token'];
 
                 // If there is no Facebook ME set it
@@ -92,18 +93,18 @@ class CodeBlender_Controller_Plugin_Facebook extends Zend_Controller_Plugin_Abst
                 }
             }
 
-            $session->facebookPath     = $config->facebook->path;
+            $session->facebookPath = $config->facebook->path;
             $session->facebookCallBack = $config->facebook->appCallBack;
-            $session->initialised      = true;
+            $session->initialised = true;
 
-        // If there is a session we need to check that it has the right information in it.
-        // For instance the session may expire but the user is still logged into Facebook
-        // So when the session is re-done the Facebook information will not be present.
+            // If there is a session we need to check that it has the right information in it.
+            // For instance the session may expire but the user is still logged into Facebook
+            // So when the session is re-done the Facebook information will not be present.
         } else {
 
             // If there is no Facebook ID set it
             if (empty($session->userID)) {
-                $session->userID      = $social->session['uid'];
+                $session->userID = $social->session['uid'];
                 $session->accessToken = $social->session['access_token'];
             }
 
@@ -118,4 +119,5 @@ class CodeBlender_Controller_Plugin_Facebook extends Zend_Controller_Plugin_Abst
         Zend_Debug::dump($social, 'Social', false);
         Zend_Debug::dump($session->me, 'Facebook Me', false);
     }
+
 }

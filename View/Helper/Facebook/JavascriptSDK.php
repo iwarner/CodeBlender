@@ -5,7 +5,7 @@
  *
  * @category   CodeBlender
  * @package    Helper
- * @copyright  Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://codeblender.net/license
  */
 
@@ -14,11 +14,11 @@
  *
  * @category   CodeBlender
  * @package    Helper
- * @copyright  Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://codeblender.net/license
  * @see        http://developers.facebook.com/docs/reference/javascript/
  */
-class CodeBlender_View_Helper_Facebook_JavascriptSDK
+class CodeBlender_View_Helper_Facebook_JavascriptSDK extends Zend_View_Helper_Abstract
 {
 
     /**

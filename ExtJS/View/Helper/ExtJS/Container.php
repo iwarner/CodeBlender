@@ -1,10 +1,11 @@
 <?php
+
 /**
  * CodeBlender
  *
  * @category  CodeBlender
- * @package   CodeBlender_ExtJS
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @package   ExtJS
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 
@@ -12,12 +13,13 @@
  * Enable ExtJS
  *
  * @category  CodeBlender
- * @package   CodeBlender_ExtJS
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @package   ExtJS
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 class CodeBlender_ExtJS_View_Helper_ExtJS_Container extends Zend_View_Helper_Abstract
 {
+
     /**
      * @var Zend_View_Interface
      */
@@ -37,6 +39,7 @@ class CodeBlender_ExtJS_View_Helper_ExtJS_Container extends Zend_View_Helper_Abs
      */
     public function __construct()
     {
+
     }
 
     /**
@@ -170,4 +173,5 @@ class CodeBlender_ExtJS_View_Helper_ExtJS_Container extends Zend_View_Helper_Abs
 
         return $this;
     }
+
 }

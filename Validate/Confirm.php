@@ -1,19 +1,20 @@
 <?php
+
 /**
  * CodeBlender
  *
  * @category  CodeBlender
  * @package   Validate
- * @copyright Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 
 /**
- * Validates all fields are equal
+ * Validate
  *
  * @category  CodeBlender
  * @package   Validate
- * @copyright Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 class CodeBlender_Validate_Confirm extends Zend_Validate_Abstract
@@ -50,7 +51,7 @@ class CodeBlender_Validate_Confirm extends Zend_Validate_Abstract
      */
     public function __construct($field, $context = null)
     {
-        $this->_field   = $field;
+        $this->_field = $field;
         $this->_context = $context;
     }
 
@@ -75,7 +76,7 @@ class CodeBlender_Validate_Confirm extends Zend_Validate_Abstract
 
         // Validate string
         if (is_string($context) && $value == $context) {
-             return true;
+            return true;
         }
 
         // Validate from array
@@ -86,4 +87,5 @@ class CodeBlender_Validate_Confirm extends Zend_Validate_Abstract
         $this->_error(self::NOT_MATCH);
         return false;
     }
+
 }

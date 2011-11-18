@@ -4,7 +4,7 @@
  *
  * @category   CodeBlender
  * @package    Helper
- * @copyright  Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://codeblender.net/license
  */
 
@@ -12,16 +12,13 @@
  * Helper
  *
  * <code>
- * // Invoke Google Ajax Libraries Helper
- * $this->google_AjaxLibraries(array(
- *   'library' => 'ext-core',
- *   'version' => 3
- *  ));
+ * // Google Ajax Libraries
+ * echo $this->google_AjaxLibraries();
  * </code>
  *
  * @category   CodeBlender
  * @package    Helper
- * @copyright  Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://codeblender.net/license
  * @see        http://code.google.com/apis/ajaxlibs/
  */
@@ -33,16 +30,27 @@ class CodeBlender_View_Helper_Google_AjaxLibraries extends Zend_View_Helper_Abst
      *
      * @var string
      */
-    protected $library = false;
+    protected $library = 'jquery';
+
     /**
      * The list of available libraries that Google Load offers
      *
      * @var array
      */
     protected $libraryArray = array(
-        'chrome-frame', 'dojo', 'ext-core', 'jquery', 'jqueryui', 'mootools',
-        'prototype', 'scriptaculous', 'swfobject', 'yui', 'webfont'
+        'chrome-frame',
+        'dojo',
+        'ext-core',
+        'jquery',
+        'jqueryui',
+        'mootools',
+        'prototype',
+        'scriptaculous',
+        'swfobject',
+        'yui',
+        'webfont'
     );
+
     /**
      * The version number to laod
      *
@@ -52,10 +60,10 @@ class CodeBlender_View_Helper_Google_AjaxLibraries extends Zend_View_Helper_Abst
      *
      * @var string
      */
-    protected $version = false;
+    protected $version = 1;
 
     /**
-     * Method to generate the needed google code for the required Ad Slot.
+     * googleAjaxLibraries
      *
      * @param  array  $params Array of attribute values
      * @return string
@@ -70,20 +78,14 @@ class CodeBlender_View_Helper_Google_AjaxLibraries extends Zend_View_Helper_Abst
             return false;
         }
 
-        // Append the Facebook Feature Loader
+        // Prepend JS File
         $this->view->headScript()->prependFile('https://www.google.com/jsapi', 'text/javascript');
 
-        // Check if a version is supplied
-        if (!empty($this->params['version'])) {
-            $version = ', \'' . $this->params['version'] . '\'';
-        } else {
-            $version = '';
-        }
-
+        // Capture JS
         $this->view->headScript()->captureStart('APPEND');
         ?>
-        // Load the Library
-        google.load('<?php echo $this->params['library'] ?>'<?php echo $version ?>);
+        // Load JS Library
+        google.load('<?php echo $this->params['library'] ?>', <?php echo $this->params['version'] ?>);
         <?php
         $this->view->headScript()->captureEnd();
     }

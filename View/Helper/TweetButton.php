@@ -5,7 +5,7 @@
  *
  * @category   CodeBlender
  * @package    Helper
- * @copyright  Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://codeblender.net/license
  */
 
@@ -13,19 +13,18 @@
  * Helper
  *
  * <code>
- * // Include the Tweet Button
+ * // Tweet Button
  * echo $this->tweetButton();
  * </code>
  *
  * @category   CodeBlender
  * @package    Helper
- * @copyright  Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://codeblender.net/license
- *
  * @see        http://twitter.com/about/resources/tweetbutton
  * @see        https://dev.twitter.com/docs/tweet-button
  */
-class CodeBlender_View_Helper_TweetButton
+class CodeBlender_View_Helper_TweetButton extends Zend_View_Helper_Abstract
 {
 
     /**

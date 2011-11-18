@@ -5,7 +5,7 @@
  *
  * @category  CodeBlender
  * @package   Plugin
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 
@@ -14,7 +14,7 @@
  *
  * @category  CodeBlender
  * @package   Plugin
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  *
  * @todo This includes Facebook Auth - remove if not required.
@@ -37,9 +37,9 @@ class CodeBlender_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstract
         // Instantiate the DbTable auth Adapter and set credentials Make sure status is Active also
         $authAdapter = new Zend_Auth_Adapter_DbTable(Zend_Db_Table::getDefaultAdapter());
         $authAdapter->setTableName('user')
-                ->setIdentityColumn('user_id')
-                ->setCredentialColumn('user_id')
-                ->setCredentialTreatment('? AND status = "Active"');
+            ->setIdentityColumn('user_id')
+            ->setCredentialColumn('user_id')
+            ->setCredentialTreatment('? AND status = "Active"');
 
         // Get the Session and the Facebook userID
         $session = new Zend_Session_Namespace(CODEBLENDER_SITENAME);
@@ -63,7 +63,7 @@ class CodeBlender_Controller_Plugin_Auth extends Zend_Controller_Plugin_Abstract
 
         // Set the details through the AuthAdaptor
         $authAdapter->setIdentity($userID)
-                ->setCredential($userID);
+            ->setCredential($userID);
 
         // Perform the authentication query, saving the result
         $result = $auth->authenticate($authAdapter);

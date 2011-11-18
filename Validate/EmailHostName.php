@@ -1,10 +1,11 @@
 <?php
+
 /**
  * CodeBlender
  *
  * @category  CodeBlender
  * @package   Validate
- * @copyright Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 
@@ -13,7 +14,7 @@
  *
  * @category  CodeBlender
  * @package   Validate
- * @copyright Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 class CodeBlender_Validate_EmailHostName extends Zend_Validate_Abstract
@@ -36,6 +37,7 @@ class CodeBlender_Validate_EmailHostName extends Zend_Validate_Abstract
      */
     public function __construct()
     {
+
     }
 
     /**
@@ -49,7 +51,6 @@ class CodeBlender_Validate_EmailHostName extends Zend_Validate_Abstract
     {
         Zend_Debug::dump($value);
 //        Zend_Debug::dump($this->_field);
-
         // Set value
 //        $this->_setValue($value);
 //
@@ -73,4 +74,5 @@ class CodeBlender_Validate_EmailHostName extends Zend_Validate_Abstract
         $this->_error(self::NOT_REGISTERED);
         return false;
     }
+
 }

@@ -5,7 +5,7 @@
  *
  * @category  CodeBlender
  * @package   DB
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 
@@ -14,7 +14,7 @@
  *
  * @category  CodeBlender
  * @package   DB
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  *
  * @todo Insert and Update use field names - should be configurable
@@ -82,8 +82,8 @@ abstract class CodeBlender_Db_Table_Abstract extends Zend_Db_Table_Abstract
     public function getCount()
     {
         $select = $this->select()
-                ->from($this, array('total' => 'COUNT(*)'))
-                ->where('status = ?', 'Active');
+            ->from($this, array('total' => 'COUNT(*)'))
+            ->where('status = ?', 'Active');
 
         $row = $this->fetchRow($select);
         return $row->total;
@@ -103,7 +103,7 @@ abstract class CodeBlender_Db_Table_Abstract extends Zend_Db_Table_Abstract
 
         // Query to get all the table results
         $select = $this->select()
-                ->where('status = ?', 'Active');
+            ->where('status = ?', 'Active');
 
         // Create the sorting options
         if (!empty($params['sort']) && preg_match('/^\w+$/', $params['sort']) && !empty($params['dir']) && ($params['dir'] == 'ASC' || $params['dir'] == 'DESC')) {

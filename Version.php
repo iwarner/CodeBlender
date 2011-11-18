@@ -3,17 +3,17 @@
  * CodeBlender
  *
  * @category  CodeBlender
- * @package   CodeBlender_Version
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @package   Version
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 
 /**
- * Class to store and retrieve the version of CodeBlender
+ * Version
  *
  * @category  CodeBlender
- * @package   CodeBlender_Version
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @package   Version
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 final class CodeBlender_Version
@@ -21,7 +21,7 @@ final class CodeBlender_Version
     /**
      * CodeBlender version identification - see compareVersion()
      */
-    const VERSION = '0.0.1';
+    const VERSION = '0.0.5';
 
     /**
      * Compare the specified CodeBlender version string $version

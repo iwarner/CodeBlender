@@ -10,7 +10,7 @@
  */
 
 /**
- * Image Class
+ * Image
  *
  * @category  CodeBlender
  * @package   Image
@@ -20,8 +20,8 @@
 class CodeBlender_Image
 {
     const TRANSPARENT = 127;
-    const BLACK       = 0x000000;
-    const WHITE       = 0xffffff;
+    const BLACK = 0x000000;
+    const WHITE = 0xffffff;
 
     /**
      * The gd image resource handle.
@@ -69,8 +69,8 @@ class CodeBlender_Image
             throw new Exception('Not a valid GD image resource');
         }
 
-        $this->img    = $gdImageResource;
-        $this->width  = $w;
+        $this->img = $gdImageResource;
+        $this->width = $w;
         $this->height = $h;
     }
 
@@ -161,7 +161,6 @@ class CodeBlender_Image
             imagealphablending($newImg, false);
             imagesavealpha($newImg, true);
             $gdColor = imagecolorallocatealpha($newImg, 0, 0, 0, 127);
-
         } else {
             $gdColor = imagecolorallocate($newImg, ($letterboxColor >> 16) & 0xff, ($letterboxColor >> 8) & 0xff, ($letterboxColor >> 0) & 0xff);
         }
@@ -192,7 +191,7 @@ class CodeBlender_Image
      */
     private static function computeResizePreserveAspect($sw, $sh, $tw, $th)
     {
-        $imgRatio    = floatval($sw) / floatval($sh);
+        $imgRatio = floatval($sw) / floatval($sh);
         $targetRatio = floatval($tw) / floatval($th);
 
         if ($imgRatio > $targetRatio) {
@@ -200,7 +199,6 @@ class CodeBlender_Image
             // Scale to max width
             $w = $tw;
             $h = $w * $sh / $sw;
-
         } else {
 
             // Scale to max height
@@ -221,7 +219,7 @@ class CodeBlender_Image
      */
     public function watermark($path)
     {
-        $photo     = $this->img;
+        $photo = $this->img;
         $watermark = imagecreatefrompng($path);
 
         imagealphablending($photo, true);

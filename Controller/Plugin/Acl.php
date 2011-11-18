@@ -5,7 +5,7 @@
  *
  * @category  CodeBlender
  * @package   Plugin
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 
@@ -19,10 +19,8 @@
  *
  * @category  CodeBlender
  * @package   Plugin
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
- *
- * @todo Navigation should be optional
  */
 class CodeBlender_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 {
@@ -53,7 +51,6 @@ class CodeBlender_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
             // // Check if they can view the Module
         } elseif ($acl->has($request->getParam('module'))) {
             $access = $acl->isAllowed($role, $request->getParam('module'), 'view');
-
         }
 
         // If the user has no access then redirect them to the specified login page

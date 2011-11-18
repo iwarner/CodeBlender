@@ -5,7 +5,7 @@
  *
  * @category  CodeBlender
  * @package   ActionHelper
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 
@@ -14,11 +14,9 @@
  *
  * @category  CodeBlender
  * @package   ActionHelper
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  * @see       http://developers.facebook.com/docs/authentication/signed_request/
- *
- * @todo Use Zend Log
  */
 class CodeBlender_Controller_Action_Helper_FacebookRequest extends Zend_Controller_Action_Helper_Abstract
 {
@@ -40,7 +38,6 @@ class CodeBlender_Controller_Action_Helper_FacebookRequest extends Zend_Controll
             // Parse request
             $data = $this->_parseSignedRequest($_REQUEST['signed_request'], $config['secret']);
             return $data;
-
         } else {
             error_log('No Signed Request found');
         }

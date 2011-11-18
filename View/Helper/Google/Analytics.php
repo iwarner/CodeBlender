@@ -1,47 +1,44 @@
 <?php
+
 /**
  * CodeBlender
  *
  * @category   CodeBlender
- * @package    Helpers
- * @subpackage Google
- * @copyright  Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @package    Helper
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://codeblender.net/license
  */
 
 /**
- * Helper class to produce the Google Analytics Javascript Code
+ * Helper
  *
- * The Publisher ID should be defined within the config file:
- * google.Analytics = UA-3150249-16
+ * Config Options
+ * google.analytics = ""
  *
  * <code>
- * // Include the Google Analytics Tracking icon
- * $this->google_Analytics();
+ * // Google Analytics Tracking
+ * echo $this->google_Analytics();
  * </code>
  *
  * @category   CodeBlender
- * @package    Helpers
- * @subpackage Google
- * @copyright  Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @package    Helper
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://codeblender.net/license
  */
-class CodeBlender_View_Helper_Google_Analytics
+class CodeBlender_View_Helper_Google_Analytics extends Zend_View_Helper_Abstract
 {
+
     /**
-     * Method to render the Google Analytics code
-     *
-     * @return string
+     * Google Analytics
      */
     public function google_Analytics()
     {
         // Config
         $google = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('google');
 
-
         // Create the analytics tracking code
         $string =
-        <<<HTML
+            <<<HTML
             <script type="text/javascript">
 
               var _gaq = _gaq || [];
@@ -59,4 +56,5 @@ HTML;
 
         return $string;
     }
+
 }

@@ -5,7 +5,7 @@
  *
  * @category   CodeBlender
  * @package    Helper
- * @copyright  Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://codeblender.net/license
  */
 
@@ -13,30 +13,35 @@
  * Helper
  *
  * <code>
- *     // Invoke the Facebook Comments Helper
- *     echo $this->facebook_Comments();
+ * // Facebook Comments
+ * echo $this->facebook_Comments();
  * </code>
  *
  * @category   CodeBlender
  * @package    Helper
- * @copyright  Copyright (c) 2000-2001 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://codeblender.net/license
- * @see        http://wiki.developers.facebook.com/index.php/Fb:comments
+ * @see        http://developers.facebook.com/docs/reference/plugins/comments/
  */
-class CodeBlender_View_Helper_Facebook_Comments
+class CodeBlender_View_Helper_Facebook_Comments extends Zend_View_Helper_Abstract
 {
+
+    /**
+     * Type flag. Either html5 or xfbml supported.
+     */
+    protected $type = 'html5';
 
     /**
      * The URL for this Comments plugin.
      * News feed stories on Facebook will link to this URL.
      */
-    protected $HREF = false;
+    protected $href = 'triangle-solutions.com';
 
     /**
      * The width of the plugin in pixels.
      * Minimum recommended width: 400px.
      */
-    protected $width = 580;
+    protected $width = 520;
 
     /**
      * The number of comments to show by default. Default: 10. Minimum: 1
@@ -48,7 +53,6 @@ class CodeBlender_View_Helper_Facebook_Comments
      */
     protected $colorScheme = 'light';
 
-
     /**
      * Facebook Comments
      */
@@ -57,14 +61,18 @@ class CodeBlender_View_Helper_Facebook_Comments
         // Merge the two arrays to overwrite default values.
         $params = array_merge(get_class_vars(__CLASS__), $params);
 
-        $string = <<<HTML
-            <fb:comments
-                href="{$params['HREF']}"
-                num_posts="{$params['numPosts']}"
-                width="{$params['width']}"
-                colorscheme="{$params['colorScheme']}">
-            </fb:comments>
+        // Type check
+        if ($params['type'] === 'html5') {
+
+            $string = <<<HTML
+                <div class="fb-comments" data-href="{$params['href']}" data-num-posts="{$params['numPosts']}" data-width="{$params['width']}" data-colorscheme="{$params['colorScheme']}"></div>
 HTML;
+        } else {
+
+            $string = <<<HTML
+                <fb:comments href="{$params['href']}" num_posts="{$params['numPosts']}" width="{$params['width']}" colorscheme="{$params['colorScheme']}"></fb:comments>
+HTML;
+        }
 
         return $string;
     }

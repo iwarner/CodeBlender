@@ -5,7 +5,7 @@
  *
  * @category  CodeBlender
  * @package   ActionHelper
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 
@@ -28,7 +28,7 @@
  *
  * @category  CodeBlender
  * @package   ActionHelper
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  *
  * @todo Log any errors correctly
@@ -46,42 +46,49 @@ class CodeBlender_Controller_Action_Helper_Mail extends Zend_Controller_Action_H
      * @var array
      */
     protected $attachment = array();
+
     /**
      * Email address, name key pair of the sender
      *
      * @var array
      */
     protected $emailFrom = array();
+
     /**
      * Email address, name key pair of the recipient
      *
      * @var array
      */
     protected $emailTo = array();
+
     /**
      * Mail object
      *
      * @var object
      */
     protected $mail = false;
+
     /**
      * Class paramaters
      *
      * @var array
      */
     protected $params = array();
+
     /**
      * Email subject
      *
      * @var string
      */
     protected $subject = false;
+
     /**
      * Email Text - HTML
      *
      * @var string
      */
     protected $textHTML = false;
+
     /**
      * Email Text - Plain
      *
@@ -147,8 +154,8 @@ class CodeBlender_Controller_Action_Helper_Mail extends Zend_Controller_Action_H
 
                 // Recipients
                 $this->mail->addTo($k, $v)
-                        ->setSubject($this->params['subject'])
-                        ->send($this->mail->getDefaultTransport());
+                    ->setSubject($this->params['subject'])
+                    ->send($this->mail->getDefaultTransport());
             }
         } catch (Exception $e) {
             Zend_Debug::dump($e->getMessage());

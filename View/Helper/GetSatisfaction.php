@@ -1,62 +1,71 @@
 <?php
+
 /**
  * CodeBlender
  *
  * @category  CodeBlender
- * @package   Helpers
- * @copyright Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @package   Helper
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 
 /**
- * Helper class to display the Get Satisfaction Display Code
+ * Helper
  *
- * All the config elements are run from the main config file
+ * Config Options
+ *
+ * getSatisfaction.color = ""
+ * getSatisfaction.name = ""
+ * getSatisfaction.placement = ""
+ * getSatisfaction.product = ""
+ * getSatisfaction.tab = ""
  *
  * <code>
- * // Include the Get Satisfaction Feedback Element
- * $this->feedBack_GetSatisfaction();
+ * // Get Satisfaction
+ * echo $this->feedBack_GetSatisfaction();
  * </code>
  *
  * @category  CodeBlender
- * @package   Helpers
- * @copyright Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @package   Helper
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
- * @see       http://getsatisfaction.com
+ * @see       http://getsatisfaction.com/explore/widgets
  */
-class CodeBlender_View_Helper_GetSatisfaction
+class CodeBlender_View_Helper_GetSatisfaction extends Zend_View_Helper_Abstract
 {
+
     /**
-     * Method to render the Get Satisfaction Feedback Tab.
-     *
-     * @return string
+     * getSatisfaction
      */
     public function getSatisfaction()
     {
-        // Invoke the Config
-        $config = Zend_Registry::get('config');
+        // Config
+        $config = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('getSatisfaction');
 
-        // Check to see if a product is set.
-        if ($config->getSatisfaction->product) {
-            $product = '&amp;product=' . $config->getSatisfaction->name;
+        // Product
+        if ($config['product']) {
+            $product = '&amp;product=' . $config['name'];
         } else {
             $product = '';
         }
 
-        // Create the analytics tracking code
         $string =
-        <<<HTML
-          <style type='text/css'>@import url('http://s3.amazonaws.com/getsatisfaction.com/feedback/feedback.css');</style>
-          <script type='text/javascript' src='http://s3.amazonaws.com/getsatisfaction.com/feedback/feedback.js'></script>
+            <<<HTML
+            <style type='text/css'>
+                @import url('http://s3.amazonaws.com/getsatisfaction.com/feedback/feedback.css');
+            </style>
 
-          <script type="text/javascript" charset="utf-8">
-           var tab_options       = {}
-           tab_options.placement = "{$config->getSatisfaction->placement}";
-           tab_options.color     = "#{$config->getSatisfaction->color}";
-           GSFN.feedback('http://getsatisfaction.com/{$config->getSatisfaction->name}/feedback/topics/new?display=overlay{$product}&amp;style={$config->getSatisfaction->tab}', tab_options);
-          </script>
+            <script type='text/javascript' src='http://s3.amazonaws.com/getsatisfaction.com/feedback/feedback.js'></script>
+
+            <script type="text/javascript" charset="utf-8">
+                var tab_options       = {}
+                tab_options.placement = "{$config['placement']}";
+                tab_options.color     = "#{$config['color']}";
+                GSFN.feedback('http://getsatisfaction.com/{$config['name']}/feedback/topics/new?display=overlay{$product}&amp;style={$config['tab']}', tab_options);
+            </script>
 HTML;
 
         return $string;
     }
+
 }

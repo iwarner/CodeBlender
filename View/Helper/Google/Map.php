@@ -1,25 +1,25 @@
 <?php
+
 /**
  * CodeBlender
  *
  * @category   CodeBlender
- * @package    Helpers
- * @subpackage Google
- * @copyright  Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @package    Helper
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://codeblender.net/license
  */
 
 /**
- * Google Map API
+ * Helper
  *
  * @category   CodeBlender
- * @package    Helpers
- * @subpackage Google
- * @copyright  Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @package    Helper
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://codeblender.net/license
  */
-class CodeBlender_View_Helper_Google_Map
+class CodeBlender_View_Helper_Google_Map extends Zend_View_Helper_Abstract
 {
+
     /**
      * Message that pops up when the browser is incompatible with Google Maps.
      * Set to empty string to disable.
@@ -110,7 +110,7 @@ class CodeBlender_View_Helper_Google_Map
         'dir_text' => 'Directions: ',
         'dir_tohere' => 'To here',
         'dir_fromhere' => 'From here'
-        );
+    );
 
     /**
      * PEAR::DB DSN for geocode caching. example:
@@ -131,7 +131,7 @@ class CodeBlender_View_Helper_Google_Map
      * @var string $lookup_server
      */
     public $lookup_server =
-      array('GOOGLE' => 'maps.google.com', 'YAHOO' => 'api.local.yahoo.com');
+        array('GOOGLE' => 'maps.google.com', 'YAHOO' => 'api.local.yahoo.com');
 
     /**
      * What server geocode lookups come from
@@ -354,9 +354,9 @@ class CodeBlender_View_Helper_Google_Map
      */
     public function google_Map($mapID = 'gMap', $appID)
     {
-        $this->mapID     = $mapID;
+        $this->mapID = $mapID;
         $this->sidebarID = 'sidebar_' . $mapID;
-        $this->appID     = $appID;
+        $this->appID = $appID;
     }
 
     /**
@@ -373,8 +373,7 @@ class CodeBlender_View_Helper_Google_Map
             return false;
         }
 
-        return $this->addMarkerByCoords($_geocode['lon'], $_geocode['lat'],
-          $title, $html);
+        return $this->addMarkerByCoords($_geocode['lon'], $_geocode['lat'], $title, $html);
     }
 
     /**
@@ -389,9 +388,9 @@ class CodeBlender_View_Helper_Google_Map
      */
     public function addMarkerByCoords($lon, $lat, $title = '', $html = '')
     {
-        $_marker['lon']   = $lon;
-        $_marker['lat']   = $lat;
-        $_marker['html']  = (is_array($html) || strlen($html) > 0) ? $html : $title;
+        $_marker['lon'] = $lon;
+        $_marker['lat'] = $lat;
+        $_marker['html'] = (is_array($html) || strlen($html) > 0) ? $html : $title;
         $_marker['title'] = $title;
 
         $this->_markers[] = $_marker;
@@ -421,8 +420,7 @@ class CodeBlender_View_Helper_Google_Map
             return false;
         }
 
-        return $this->addPolyLineByCoords($_geocode1['lon'], $_geocode1['lat'],
-          $_geocode2['lon'], $_geocode2['lat'], $color, $weight, $opacity);
+        return $this->addPolyLineByCoords($_geocode1['lon'], $_geocode1['lat'], $_geocode2['lon'], $_geocode2['lat'], $color, $weight, $opacity);
     }
 
     /**
@@ -439,15 +437,14 @@ class CodeBlender_View_Helper_Google_Map
      * @param  string $opacity The line opacity (percentage)
      * @return int
      */
-    public function addPolyLineByCoords($lon1, $lat1, $lon2, $lat2, $adjust = false,
-      $color = '#FF0000', $weight = 3, $opacity = 40)
+    public function addPolyLineByCoords($lon1, $lat1, $lon2, $lat2, $adjust = false, $color = '#FF0000', $weight = 3, $opacity = 40)
     {
-        $_polyline['lon1']    = $lon1;
-        $_polyline['lat1']    = $lat1;
-        $_polyline['lon2']    = $lon2;
-        $_polyline['lat2']    = $lat2;
-        $_polyline['color']   = $color;
-        $_polyline['weight']  = $weight;
+        $_polyline['lon1'] = $lon1;
+        $_polyline['lat1'] = $lat1;
+        $_polyline['lon2'] = $lon2;
+        $_polyline['lat2'] = $lat2;
+        $_polyline['color'] = $color;
+        $_polyline['weight'] = $weight;
         $_polyline['opacity'] = $opacity;
 
         $this->_polylines[] = $_polyline;
@@ -498,9 +495,7 @@ class CodeBlender_View_Helper_Google_Map
      * @param  string $infoWindowAnchorY Y coordinate for info window anchor point
      * @return string
      */
-    public function createMarkerIcon($iconImage, $iconShadowImage = '',
-      $iconAnchorX = 'x', $iconAnchorY = 'x', $infoWindowAnchorX = 'x',
-      $infoWindowAnchorY = 'x')
+    public function createMarkerIcon($iconImage, $iconShadowImage = '', $iconAnchorX = 'x', $iconAnchorY = 'x', $infoWindowAnchorX = 'x', $infoWindowAnchorY = 'x')
     {
         $_icon_image_path = strpos($iconImage, 'http') === 0 ? $iconImage : $_SERVER['DOCUMENT_ROOT'] . $iconImage;
 
@@ -509,7 +504,7 @@ class CodeBlender_View_Helper_Google_Map
         }
 
         if ($iconShadowImage) {
-            $_shadow_image_path = strpos($iconShadowImage,'http') === 0 ? $iconShadowImage : $_SERVER['DOCUMENT_ROOT'] . $iconShadowImage;
+            $_shadow_image_path = strpos($iconShadowImage, 'http') === 0 ? $iconShadowImage : $_SERVER['DOCUMENT_ROOT'] . $iconShadowImage;
 
             if (!($_shadow_info = @getimagesize($_shadow_image_path))) {
                 die('GoogleMapAPI:createMarkerIcon: Error reading image: ' . $iconShadowImage);
@@ -533,19 +528,18 @@ class CodeBlender_View_Helper_Google_Map
         }
 
         $icon_info = array(
-          'image'             => $iconImage,
-          'iconWidth'         => $_image_info[0],
-          'iconHeight'        => $_image_info[1],
-          'iconAnchorX'       => $iconAnchorX,
-          'iconAnchorY'       => $iconAnchorY,
-          'infoWindowAnchorX' => $infoWindowAnchorX,
-          'infoWindowAnchorY' => $infoWindowAnchorY
-         );
+            'image' => $iconImage,
+            'iconWidth' => $_image_info[0],
+            'iconHeight' => $_image_info[1],
+            'iconAnchorX' => $iconAnchorX,
+            'iconAnchorY' => $iconAnchorY,
+            'infoWindowAnchorX' => $infoWindowAnchorX,
+            'infoWindowAnchorY' => $infoWindowAnchorY
+        );
 
         if ($iconShadowImage) {
-            $icon_info = array_merge($icon_info,
-              array('shadow' => $iconShadowImage, 'shadowWidth' => $_shadow_info[0],
-                    'shadowHeight' => $_shadow_info[1]));
+            $icon_info = array_merge($icon_info, array('shadow' => $iconShadowImage, 'shadowWidth' => $_shadow_info[0],
+                'shadowHeight' => $_shadow_info[1]));
         }
 
         return $icon_info;
@@ -562,11 +556,9 @@ class CodeBlender_View_Helper_Google_Map
      * @param  string $infoWindowAnchorY Y coordinate for info window anchor point
      * @return int
      */
-    public function addMarkerIcon($iconImage, $iconShadowImage = '', $iconAnchorX = 'x',
-      $iconAnchorY = 'x', $infoWindowAnchorX = 'x', $infoWindowAnchorY = 'x')
+    public function addMarkerIcon($iconImage, $iconShadowImage = '', $iconAnchorX = 'x', $iconAnchorY = 'x', $infoWindowAnchorX = 'x', $infoWindowAnchorY = 'x')
     {
-        $this->_icons[] = $this->createMarkerIcon($iconImage, $iconShadowImage,
-          $iconAnchorX, $iconAnchorY, $infoWindowAnchorX, $infoWindowAnchorY);
+        $this->_icons[] = $this->createMarkerIcon($iconImage, $iconShadowImage, $iconAnchorX, $iconAnchorY, $infoWindowAnchorX, $infoWindowAnchorY);
 
         return count($this->_icons) - 1;
     }
@@ -580,7 +572,7 @@ class CodeBlender_View_Helper_Google_Map
     public function getHeaderJS($source = false)
     {
         if (empty($source)) {
-            $string  = '<script type="text/javascript" src="http://maps.google.com/maps?file=api&v=' . $this->_version . '&key=' . $this->api_key . '" >';
+            $string = '<script type="text/javascript" src="http://maps.google.com/maps?file=api&v=' . $this->_version . '&key=' . $this->api_key . '" >';
             $string .= '/* <![CDATA[ */ /* ]]> */</script>';
         } else {
             $string = 'http://maps.google.com/maps?file=api&v=' . $this->_version . '&key=' . $this->api_key;
@@ -653,7 +645,6 @@ class CodeBlender_View_Helper_Google_Map
                     $_output .= sprintf('icon[%s].iconSize = new GSize(%s,%s);', $i, $info['iconWidth'], $info['iconHeight']);
                     $_output .= sprintf('icon[%s].iconAnchor = new GPoint(%s,%s);', $i, $info['iconAnchorX'], $info['iconAnchorY']);
                     $_output .= sprintf('icon[%s].infoWindowAnchor = new GPoint(%s,%s);', $i, $info['infoWindowAnchorX'], $info['infoWindowAnchorY']);
-
                 } else {
                     $_output .= "icon[$i] = icon[$exist_icn[$icon_key]];";
                 }
@@ -663,7 +654,7 @@ class CodeBlender_View_Helper_Google_Map
         $_output .= 'var map = null;';
 
         if ($this->onload) {
-           $_output .= 'function onLoad() {';
+            $_output .= 'function onLoad() {';
         }
 
         if (!empty($this->alert_browser)) {
@@ -679,7 +670,7 @@ class CodeBlender_View_Helper_Google_Map
 
         if (isset($this->center_lat) && isset($this->center_lon)) {
             $_output .= 'map.setCenter(new GLatLng(' . $this->center_coords . '), ' .
-              $this->zoom . ', ' . $this->map_type . ');';
+                $this->zoom . ', ' . $this->map_type . ');';
         }
 
         // Set the Min and Max zoom levels.
@@ -748,11 +739,11 @@ class CodeBlender_View_Helper_Google_Map
         }
 
         if ($this->map_controls) {
-          if ($this->control_size == 'large') {
-              $_output .= 'map.addControl(new GLargeMapControl());';
-          } else {
-              $_output .= 'map.addControl(new GSmallMapControl());';
-          }
+            if ($this->control_size == 'large') {
+                $_output .= 'map.addControl(new GLargeMapControl());';
+            } else {
+                $_output .= 'map.addControl(new GSmallMapControl());';
+            }
         }
 
         if ($this->type_controls) {
@@ -784,7 +775,7 @@ class CodeBlender_View_Helper_Google_Map
         }
 
         if ($this->onload) {
-           $_output .= '}';
+            $_output .= '}';
         }
 
         // Include the markers JS
@@ -837,17 +828,17 @@ class CodeBlender_View_Helper_Google_Map
     {
         // Constant: width in pixels of each tab heading (set by google)
         $SINGLE_TAB_WIDTH = 88;
-        $i                = 0;
-        $_output          = '';
+        $i = 0;
+        $_output = '';
 
         foreach ($this->_markers as $_marker) {
 
             if (is_array($_marker['html'])) {
 
                 // Warning: you can't have two tabs with the same header.
-                $ti       = 0;
+                $ti = 0;
                 $num_tabs = count($_marker['html']);
-                $tab_obs  = array();
+                $tab_obs = array();
 
                 foreach ($_marker['html'] as $tab => $info) {
 
@@ -857,24 +848,21 @@ class CodeBlender_View_Helper_Google_Map
                         $width_style = '';
                     }
 
-                    $tab       = str_replace('"','\"',$tab);
-                    $info      = str_replace('"','\"',$info);
-                    $tab_obs[] = sprintf('new GInfoWindowTab("%s", "%s")', $tab,
-                      '<div id=\"gmapmarker\"' . $width_style . '>' . $info . '</div>');
+                    $tab = str_replace('"', '\"', $tab);
+                    $info = str_replace('"', '\"', $info);
+                    $tab_obs[] = sprintf('new GInfoWindowTab("%s", "%s")', $tab, '<div id=\"gmapmarker\"' . $width_style . '>' . $info . '</div>');
 
                     $ti++;
                 }
 
-                $iw_html = '[' . join(',',$tab_obs) . ']';
-
+                $iw_html = '[' . join(',', $tab_obs) . ']';
             } else {
                 $iw_html = sprintf('"%s"', str_replace('"', '\"', '<div id="gmapmarker">' . $_marker['html'] . '</div>'));
             }
 
             $_output .= sprintf('var point = new GLatLng(%s,%s);', $_marker['lat'], $_marker['lon']) . "\n";
             $_output .= '
-              var marker = createMarker(point, "' . str_replace('"', '\"',
-              $_marker['title']) . '", ' . $iw_html . ', ' . $i . ');' . "\n";
+              var marker = createMarker(point, "' . str_replace('"', '\"', $_marker['title']) . '", ' . $iw_html . ', ' . $i . ');' . "\n";
 
             $_output .= 'map.addOverlay(marker);' . "\n";
             $i++;
@@ -926,7 +914,7 @@ class CodeBlender_View_Helper_Google_Map
             $_output .= 'var tabFlag = isArray(html);' . "\n";
             $_output .= 'if(!tabFlag) { html = [{"contentElem": html}]; }' . "\n";
             $_output .= sprintf(
-                 "to_htmls[counter] = html[0].contentElem + '<p /><form class=\"gmapDir\" id=\"gmapDirTo\" style=\"white-space: nowrap;\" action=\"http://maps.google.com/maps\" method=\"get\" target=\"_blank\">' +
+                "to_htmls[counter] = html[0].contentElem + '<p /><form class=\"gmapDir\" id=\"gmapDirTo\" style=\"white-space: nowrap;\" action=\"http://maps.google.com/maps\" method=\"get\" target=\"_blank\">' +
                  '<span class=\"gmapDirHead\" id=\"gmapDirHeadTo\">%s<strong>%s</strong> - <a href=\"javascript:fromhere(' + counter + ')\">%s</a></span>' +
                  '<p class=\"gmapDirItem\" id=\"gmapDirItemTo\"><label for=\"gmapDirSaddr\" class=\"gmapDirLabel\" id=\"gmapDirLabelTo\">%s<br /></label>' +
                  '<input type=\"text\" size=\"40\" maxlength=\"40\" name=\"saddr\" class=\"gmapTextBox\" id=\"gmapDirSaddr\" value=\"\" onfocus=\"this.style.backgroundColor = \'#e0e0e0\';\" onblur=\"this.style.backgroundColor = \'#ffffff\';\" />' +
@@ -940,23 +928,8 @@ class CodeBlender_View_Helper_Google_Map
                  '<span class=\"gmapDirBtns\" id=\"gmapDirBtnsFrom\"><input value=\"%s\" type=\"%s\" class=\"gmapDirButton\" id=\"gmapDirButtonFrom\" /></span></p' +
                  '<input type=\"hidden\" name=\"daddr\" value=\"' +
                  point.y + ',' + point.x + \"(\" + title.replace(new RegExp(/\"/g),'&quot;') + \")\" + '\" /></form>';
-                 html[0].contentElem = html[0].contentElem + '<p /><div id=\"gmapDirHead\" class=\"gmapDir\" style=\"white-space: nowrap;\">%s<a href=\"javascript:tohere(' + counter + ')\">%s</a> - <a href=\"javascript:fromhere(' + counter + ')\">%s</a></div>';\n",
-                 $this->driving_dir_text['dir_text'],
-                 $this->driving_dir_text['dir_tohere'],
-                 $this->driving_dir_text['dir_fromhere'],
-                 $this->driving_dir_text['dir_to'],
-                 $this->driving_dir_text['to_button_value'],
-                 $this->driving_dir_text['to_button_type'],
-                 $this->driving_dir_text['dir_text'],
-                 $this->driving_dir_text['dir_tohere'],
-                 $this->driving_dir_text['dir_fromhere'],
-                 $this->driving_dir_text['dir_from'],
-                 $this->driving_dir_text['from_button_value'],
-                 $this->driving_dir_text['from_button_type'],
-                 $this->driving_dir_text['dir_text'],
-                 $this->driving_dir_text['dir_tohere'],
-                 $this->driving_dir_text['dir_fromhere']
-                );
+                 html[0].contentElem = html[0].contentElem + '<p /><div id=\"gmapDirHead\" class=\"gmapDir\" style=\"white-space: nowrap;\">%s<a href=\"javascript:tohere(' + counter + ')\">%s</a> - <a href=\"javascript:fromhere(' + counter + ')\">%s</a></div>';\n", $this->driving_dir_text['dir_text'], $this->driving_dir_text['dir_tohere'], $this->driving_dir_text['dir_fromhere'], $this->driving_dir_text['dir_to'], $this->driving_dir_text['to_button_value'], $this->driving_dir_text['to_button_type'], $this->driving_dir_text['dir_text'], $this->driving_dir_text['dir_tohere'], $this->driving_dir_text['dir_fromhere'], $this->driving_dir_text['dir_from'], $this->driving_dir_text['from_button_value'], $this->driving_dir_text['from_button_type'], $this->driving_dir_text['dir_text'], $this->driving_dir_text['dir_tohere'], $this->driving_dir_text['dir_fromhere']
+            );
 
             $_output .= 'if(!tabFlag) { html = html[0].contentElem; }';
         }
@@ -999,21 +972,21 @@ class CodeBlender_View_Helper_Google_Map
      */
     public function getMap()
     {
-        $_output  = '<script type="text/javascript">//<![CDATA[ ' . "\n";
+        $_output = '<script type="text/javascript">//<![CDATA[ ' . "\n";
         $_output .= 'if (GBrowserIsCompatible()) {' . "\n";
 
         if (strlen($this->map_width) > 0 && strlen($this->map_height) > 0) {
             $_output .=
-              'document.write(\'<div id="' . $this->map_id . '" style="float:right;border:1px solid;width:' .
+                'document.write(\'<div id="' . $this->map_id . '" style="float:right;border:1px solid;width:' .
                 $this->map_width . '; height:' . $this->map_height . '"></div>\');' . "\n";
         } else {
             $_output .=
-              'document.write(\'<div id="' . $this->map_id . '"></div>\');' . "\n";
+                'document.write(\'<div id="' . $this->map_id . '"></div>\');' . "\n";
         }
 
         $_output .= '}';
 
-        if(!empty($this->alert_js)) {
+        if (!empty($this->alert_js)) {
             $_output .= ' else {' . "\n";
             $_output .= 'document.write(\'' . $this->alert_js . '\');' . "\n";
             $_output .= '}' . "\n";
@@ -1021,7 +994,7 @@ class CodeBlender_View_Helper_Google_Map
 
         $_output .= '//]]></script>' . "\n";
 
-        if(!empty($this->alert_js)) {
+        if (!empty($this->alert_js)) {
             $_output .= '<noscript>' . $this->alert_js . '</noscript>' . "\n";
         }
 
@@ -1069,13 +1042,13 @@ class CodeBlender_View_Helper_Google_Map
         // PEAR DB
         // require_once 'DB.php';
 
-        $_db =& DB::connect($this->dsn);
+        $_db = & DB::connect($this->dsn);
 
         if (PEAR::isError($_db)) {
             die($_db->getMessage());
         }
 
-        $_res =& $_db->query("SELECT lon,lat FROM {$this->_db_cache_table} where address = ?", $address);
+        $_res = & $_db->query("SELECT lon,lat FROM {$this->_db_cache_table} where address = ?", $address);
 
         if (PEAR::isError($_res)) {
             die($_res->getMessage());
@@ -1088,7 +1061,7 @@ class CodeBlender_View_Helper_Google_Map
 
         $_db->disconnect();
 
-        return !empty($_ret) ? $_ret : false;
+        return!empty($_ret) ? $_ret : false;
     }
 
     /**
@@ -1099,45 +1072,45 @@ class CodeBlender_View_Helper_Google_Map
      */
     public function geoGetCoords($address, $depth = 0)
     {
-        switch($this->lookup_service) {
+        switch ($this->lookup_service) {
 
-        case 'GOOGLE':
+            case 'GOOGLE':
 
-            $_url = sprintf('http://%s/maps/geo?&q=%s&output=csv&key=%s', $this->lookup_server['GOOGLE'],rawurlencode($address),$this->api_key);
+                $_url = sprintf('http://%s/maps/geo?&q=%s&output=csv&key=%s', $this->lookup_server['GOOGLE'], rawurlencode($address), $this->api_key);
 
-            $_result = false;
+                $_result = false;
 
-            if ($_result = $this->fetchURL($_url)) {
+                if ($_result = $this->fetchURL($_url)) {
 
-                $_result_parts = explode(',',$_result);
+                    $_result_parts = explode(',', $_result);
 
-                if ($_result_parts[0] != 200) {
-                    return false;
+                    if ($_result_parts[0] != 200) {
+                        return false;
+                    }
+
+                    $_coords['lat'] = $_result_parts[2];
+                    $_coords['lon'] = $_result_parts[3];
                 }
 
-                $_coords['lat'] = $_result_parts[2];
-                $_coords['lon'] = $_result_parts[3];
-            }
+                break;
 
-            break;
+            case 'YAHOO':
+            default:
 
-        case 'YAHOO':
-        default:
+                $_url = 'http://%s/MapsService/V1/geocode';
+                $_url .= sprintf('?appid=%s&location=%s', $this->lookup_server['YAHOO'], $this->app_id, rawurlencode($address));
 
-            $_url  = 'http://%s/MapsService/V1/geocode';
-            $_url .= sprintf('?appid=%s&location=%s', $this->lookup_server['YAHOO'], $this->app_id,rawurlencode($address));
+                $_result = false;
 
-            $_result = false;
+                if ($_result = $this->fetchURL($_url)) {
 
-            if ($_result = $this->fetchURL($_url)) {
+                    preg_match('!<Latitude>(.*)</Latitude><Longitude>(.*)</Longitude>!U', $_result, $_match);
 
-                preg_match('!<Latitude>(.*)</Latitude><Longitude>(.*)</Longitude>!U', $_result, $_match);
+                    $_coords['lon'] = $_match[2];
+                    $_coords['lat'] = $_match[1];
+                }
 
-                $_coords['lon'] = $_match[2];
-                $_coords['lat'] = $_match[1];
-            }
-
-            break;
+                break;
         }
 
         return $_coords;
@@ -1167,35 +1140,35 @@ class CodeBlender_View_Helper_Google_Map
     public function geoGetDistance($lat1, $lon1, $lat2, $lon2, $unit = 'M')
     {
         // calculate miles
-        $M =  69.09 * rad2deg(acos(sin(deg2rad($lat1)) * sin(deg2rad($lat2)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($lon1 - $lon2))));
+        $M = 69.09 * rad2deg(acos(sin(deg2rad($lat1)) * sin(deg2rad($lat2)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($lon1 - $lon2))));
 
-        switch(strtoupper($unit)) {
+        switch (strtoupper($unit)) {
 
-        case 'K':
-            // kilometers
-            return $M * 1.609344;
-            break;
+            case 'K':
+                // kilometers
+                return $M * 1.609344;
+                break;
 
-        case 'N':
-            // nautical miles
-            return $M * 0.868976242;
-            break;
+            case 'N':
+                // nautical miles
+                return $M * 0.868976242;
+                break;
 
-        case 'F':
-            // feet
-            return $M * 5280;
-            break;
+            case 'F':
+                // feet
+                return $M * 5280;
+                break;
 
-        case 'I':
-            // inches
-            return $M * 63360;
-            break;
+            case 'I':
+                // inches
+                return $M * 63360;
+                break;
 
-        case 'M':
-        default:
-            // miles
-            return $M;
-            break;
+            case 'M':
+            default:
+                // miles
+                return $M;
+                break;
         }
     }
 
@@ -1217,10 +1190,10 @@ class CodeBlender_View_Helper_Google_Map
         foreach ($this->_polylines as $_polyline) {
             $_output .= '
             var polyline = new GPolyline([new GLatLng(' .
-              $_polyline['lat1'] . ', ' . $_polyline['lon1'] . '),new GLatLng(' .
-              $_polyline['lat2'] . ', ' . $_polyline['lon2'] . ')], "' .
-              $_polyline['color'] . '", ' . $_polyline['weight'] . ', ' .
-              $_polyline['opacity'] / 100.0 . ');' . "\n";
+                $_polyline['lat1'] . ', ' . $_polyline['lon1'] . '),new GLatLng(' .
+                $_polyline['lat2'] . ', ' . $_polyline['lon2'] . ')], "' .
+                $_polyline['color'] . '", ' . $_polyline['weight'] . ', ' .
+                $_polyline['opacity'] / 100.0 . ');' . "\n";
 
             $_output .= 'map.addOverlay(polyline);' . "\n";
         }
@@ -1249,19 +1222,19 @@ class CodeBlender_View_Helper_Google_Map
     public function putCache($address, $lon, $lat)
     {
         if (!isset($this->dsn) || (strlen($address) == 0 || strlen($lon) == 0 || strlen($lat) == 0)) {
-           return false;
+            return false;
         }
 
         // PEAR DB
         // require_once 'DB.php';
 
-        $_db =& DB::connect($this->dsn);
+        $_db = & DB::connect($this->dsn);
 
         if (PEAR::isError($_db)) {
             die($_db->getMessage());
         }
 
-        $_res =& $_db->query('insert into ? values (?, ?, ?)', array($this->_db_cache_table,$address, $lon, $lat));
+        $_res = & $_db->query('insert into ? values (?, ?, ?)', array($this->_db_cache_table, $address, $lon, $lat));
 
         if (PEAR::isError($_res)) {
             die($_res->getMessage());
@@ -1399,7 +1372,7 @@ class CodeBlender_View_Helper_Google_Map
      */
     public function setInfoWindowTrigger($type = 'click')
     {
-        switch($type) {
+        switch ($type) {
 
             case 'mouseover':
                 $this->window_trigger = 'mouseover';
@@ -1408,7 +1381,7 @@ class CodeBlender_View_Helper_Google_Map
             default:
                 $this->window_trigger = 'click';
                 break;
-            }
+        }
     }
 
     /**
@@ -1421,7 +1394,7 @@ class CodeBlender_View_Helper_Google_Map
      */
     public function setLookupService($service = 'GOOGLE')
     {
-        switch($service) {
+        switch ($service) {
 
             case 'GOOGLE':
                 $this->lookup_service = 'GOOGLE';
@@ -1455,7 +1428,7 @@ class CodeBlender_View_Helper_Google_Map
      */
     public function setMapDimensions($width, $height, $type)
     {
-        $this->map_width  = $width  . $type;
+        $this->map_width = $width . $type;
         $this->map_height = $height . $type;
     }
 
@@ -1467,7 +1440,7 @@ class CodeBlender_View_Helper_Google_Map
      */
     public function setMapType($type = 'map')
     {
-        switch($type) {
+        switch ($type) {
 
             case 'hybrid':
                 $this->map_type = 'G_HYBRID_MAP';
@@ -1517,12 +1490,9 @@ class CodeBlender_View_Helper_Google_Map
      * @param  string $infoWindowAnchorY
      * @return void
      */
-    public function setMarkerIcon($iconImage, $iconShadowImage = '', $iconAnchorX = 'x',
-      $iconAnchorY = 'x', $infoWindowAnchorX = 'x', $infoWindowAnchorY = 'x')
+    public function setMarkerIcon($iconImage, $iconShadowImage = '', $iconAnchorX = 'x', $iconAnchorY = 'x', $infoWindowAnchorX = 'x', $infoWindowAnchorY = 'x')
     {
-        $this->_icons = array($this->createMarkerIcon($iconImage,
-          $iconShadowImage, $iconAnchorX, $iconAnchorY, $infoWindowAnchorX,
-          $infoWindowAnchorY));
+        $this->_icons = array($this->createMarkerIcon($iconImage, $iconShadowImage, $iconAnchorX, $iconAnchorY, $infoWindowAnchorX, $infoWindowAnchorY));
     }
 
     /**
@@ -1601,8 +1571,9 @@ class CodeBlender_View_Helper_Google_Map
      */
     public function setZoomLevel($level = 14, $min = 13, $max = 17)
     {
-        $this->zoom     = $level;
+        $this->zoom = $level;
         $this->zoom_max = $min;
         $this->zoom_min = $max;
     }
+
 }

@@ -1,10 +1,16 @@
 <?php
+
 /**
  * CodeBlender
  *
  * @category  CodeBlender
+<<<<<<< HEAD
  * @package   CodeBlender_ExtJS
  * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+=======
+ * @package   ExtJS
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+>>>>>>> d539a4e... refactored helpers in CodeBlender
  * @license   http://codeblender.net/license
  */
 
@@ -16,12 +22,18 @@
  * $this->ExtJS()->enable();
  *
  * @category  CodeBlender
+<<<<<<< HEAD
  * @package   CodeBlender_ExtJS
  * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+=======
+ * @package   ExtJS
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+>>>>>>> d539a4e... refactored helpers in CodeBlender
  * @license   http://codeblender.net/license
  */
 class CodeBlender_ExtJS_View_Helper_ExtJS
 {
+
     /**
      * @var Zend_View_Interface
      */
@@ -91,4 +103,5 @@ class CodeBlender_ExtJS_View_Helper_ExtJS
 
         return call_user_func_array(array($this->_container, $method), $args);
     }
+
 }

@@ -1,30 +1,30 @@
 <?php
+
 /**
  * CodeBlender
  *
  * @category   CodeBlender
- * @package    Helpers
- * @subpackage Google
- * @copyright  Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @package    Helper
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://codeblender.net/license
  */
 
 /**
- * Google Search
+ * Helper
  *
  * <code>
- * // Include the Google Search
- * $this->google_Search();
+ * // Google Search
+ * echo $this->google_Search();
  * </code>
  *
  * @category   CodeBlender
- * @package    Helpers
- * @subpackage Google
- * @copyright  Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @package    Helper
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://codeblender.net/license
  */
 class CodeBlender_View_Helper_Google_Search
 {
+
     /**
      * The Publisher ID
      *
@@ -43,14 +43,14 @@ class CodeBlender_View_Helper_Google_Search
         // Merge the two arrays to overwrite default values.
         $params = array_merge(get_class_vars(__CLASS__), $params);
 
-        // Invoke the config
-        $config = Zend_Registry::get('config');
+        // Config
+        $config = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('google');
 
         $string = <<<HTML
 
-            <form action="{$config->google->Search}" id="cse-search-box">
+            <form action="{$config['Search']}" id="cse-search-box">
               <div>
-                <input type="hidden" name="cx" value="{$config->google->Cx}" />
+                <input type="hidden" name="cx" value="{$config['Cx']}" />
                 <input type="hidden" name="cof" value="FORID:9" />
                 <input type="hidden" name="ie" value="ISO-8859-1" />
                 <input type="text" name="q" size="30" />
@@ -62,4 +62,5 @@ HTML;
 
         return $string;
     }
+
 }

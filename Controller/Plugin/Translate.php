@@ -5,16 +5,16 @@
  *
  * @category  CodeBlender
  * @package   Plugin
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 
 /**
- * Create and handle the Translation
+ * Translate
  *
  * @category  CodeBlender
  * @package   Plugin
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 class CodeBlender_Controller_Plugin_Translate extends Zend_Controller_Plugin_Abstract

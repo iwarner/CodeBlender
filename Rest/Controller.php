@@ -5,16 +5,16 @@
  *
  * @category  CodeBlender
  * @package   Rest
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 
 /**
- * Abstract class for the Rest Controllers
+ * Rest
  *
  * @category  CodeBlender
  * @package   Rest
- * @copyright Copyright (c) 2000-2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 abstract class CodeBlender_Rest_Controller extends Zend_Rest_Controller

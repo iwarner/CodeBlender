@@ -3,41 +3,38 @@
  * CodeBlender
  *
  * @category  CodeBlender
- * @package   Helpers
- * @copyright Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @package   Helper
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  */
 
 /**
- * Helper class to render the Wibiya toolbar
+ * Helper
  *
  * <code>
- * // Include the Wibiya Toolbar
- * $this->feedBack_Wibiya();
+ * // Wibiya Toolbar
+ * echo $this->wibiya();
  * </code>
  *
  * @category  CodeBlender
- * @package   Helpers
- * @copyright Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @package   Helper
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
  * @see       http://www.wibiya.com
  */
-class CodeBlender_View_Helper_Wibiya
+class CodeBlender_View_Helper_Wibiya extends Zend_View_Helper_Abstract
 {
     /**
-     * Method to render the Wibiya toolbar
-     *
-     * @return string
+     * wibiya
      */
     public function wibiya()
     {
-        // Invoke the Config
-        $config = Zend_Registry::get('config');
+        // Config
+        $config = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('wibiya');
 
-        // Create the analytics tracking code
         $string =
         <<<HTML
-          <script src="http://toolbar.wibiya.com/toolbarLoader.php?toolbarId={$config->wibiya->toolbarID}" type="text/javascript"></script>
+          <script src="http://toolbar.wibiya.com/toolbarLoader.php?toolbarId={$config['toolbarID']}" type="text/javascript"></script>
 HTML;
 
         return $string;

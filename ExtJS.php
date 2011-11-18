@@ -1,15 +1,21 @@
 <?php
+
 /**
  * CodeBlender
  *
  * @category  CodeBlender
+<<<<<<< HEAD
  * @package   CodeBlender_ExtJS
  * @copyright Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+=======
+ * @package   ExtJS
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+>>>>>>> d539a4e... refactored helpers in CodeBlender
  * @license   http://codeblender.net/license
  */
 
 /**
- * Enable ExtJS
+ * ExtJS
  *
  * Make sure the below is included in the site config
  *
@@ -18,8 +24,13 @@
  * extjs.enabled = true
  *
  * @category  CodeBlender
+<<<<<<< HEAD
  * @package   CodeBlender_ExtJS
  * @copyright Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+=======
+ * @package   ExtJS
+ * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+>>>>>>> d539a4e... refactored helpers in CodeBlender
  * @license   http://codeblender.net/license
  */
 class CodeBlender_ExtJS
@@ -41,4 +52,5 @@ class CodeBlender_ExtJS
             $view->addHelperPath('CodeBlender/ExtJS/View/Helper', 'CodeBlender_ExtJS_View_Helper');
         }
     }
+
 }
