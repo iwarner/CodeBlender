@@ -1,10 +1,11 @@
 <?php
+
 /**
  * CodeBlender
  *
  * @category   CodeBlender
  * @package    Plugin
- * @copyright  Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://www.codeblender.net/license
  */
 
@@ -13,11 +14,12 @@
  *
  * @category   CodeBlender
  * @package    Plugin
- * @copyright  Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://www.codeblender.net/license
  */
 class CodeBlender_Controller_Plugin_Debug_Plugin_Database extends CodeBlender_Controller_Plugin_Debug_Plugin implements CodeBlender_Controller_Plugin_Debug_Plugin_Interface
 {
+
     /**
      * Contains plugin identifier name
      *
@@ -33,7 +35,7 @@ class CodeBlender_Controller_Plugin_Debug_Plugin_Database extends CodeBlender_Co
     /**
      * @var bool
      */
-    protected $_explain = false;
+    protected $_explain = true;
 
     /**
      * Create CodeBlender_Controller_Plugin_Debug_Plugin_Variables
@@ -49,11 +51,9 @@ class CodeBlender_Controller_Plugin_Debug_Plugin_Database extends CodeBlender_Co
                 $this->_db[0] = Zend_Db_Table_Abstract::getDefaultAdapter();
                 $this->_db[0]->getProfiler()->setEnabled(true);
             }
-
-        } elseif ($options['adapter'] instanceof Zend_Db_Adapter_Abstract ) {
+        } elseif ($options['adapter'] instanceof Zend_Db_Adapter_Abstract) {
             $this->_db[0] = $options['adapter'];
-        	$this->_db[0]->getProfiler()->setEnabled(true);
-
+            $this->_db[0]->getProfiler()->setEnabled(true);
         } else {
 
             foreach ($options['adapter'] as $name => $adapter) {
@@ -65,7 +65,7 @@ class CodeBlender_Controller_Plugin_Debug_Plugin_Database extends CodeBlender_Co
         }
 
         if (isset($options['explain'])) {
-            $this->_explain = (bool)$options['explain'];
+            $this->_explain = (bool) $options['explain'];
         }
     }
 
@@ -101,7 +101,7 @@ class CodeBlender_Controller_Plugin_Debug_Plugin_Database extends CodeBlender_Co
         }
 
         foreach ($this->_db as $adapter) {
-            $profiler      = $adapter->getProfiler();
+            $profiler = $adapter->getProfiler();
             $adapterInfo[] = $profiler->getTotalNumQueries() . ' in ' . round($profiler->getTotalElapsedSecs() * 1000, 2) . ' ms';
         }
 
@@ -121,15 +121,16 @@ class CodeBlender_Controller_Plugin_Debug_Plugin_Database extends CodeBlender_Co
             return '';
         }
 
-        $html = '<h4>Database queries</h4>';
+        $html = '<h4>Database Queries and Profiler</h4>
+                 Metadata cache is ';
 
-        if (Zend_Db_Table_Abstract::getDefaultMetadataCache ()) {
-            $html .= 'Metadata cache is ENABLED';
+        if (Zend_Db_Table_Abstract::getDefaultMetadataCache()) {
+            $html .= 'ENABLED';
         } else {
-            $html .= 'Metadata cache is DISABLED';
+            $html .= 'DISABLED';
         }
 
-        # For adding quotes to query params
+        // For adding quotes to query params
         function add_quotes(&$value, $key)
         {
             $value = "'" . $value . "'";
@@ -140,7 +141,7 @@ class CodeBlender_Controller_Plugin_Debug_Plugin_Database extends CodeBlender_Co
             if ($profiles = $adapter->getProfiler()->getQueryProfiles()) {
 
                 $adapter->getProfiler()->setEnabled(false);
-                $html .= '<h4>Adapter '.$name.'</h4><ol>';
+                $html .= '<h4>Adapter ' . $name . '</h4><ol>';
 
                 foreach ($profiles as $profile) {
 
@@ -149,24 +150,49 @@ class CodeBlender_Controller_Plugin_Debug_Plugin_Database extends CodeBlender_Co
                     $paramCount = count($params);
 
                     if ($paramCount) {
-                        $html .= '<li>'.htmlspecialchars(preg_replace(array_fill(0, $paramCount, '/\?/'), $params, $profile->getQuery(), 1));
+                        $html .= '<li>' . htmlspecialchars(preg_replace(array_fill(0, $paramCount, '/\?/'), $params, $profile->getQuery(), 1));
                     } else {
-                        $html .= '<li>'.htmlspecialchars($profile->getQuery());
+                        $html .= '<li>' . htmlspecialchars($profile->getQuery());
                     }
 
-                    $html .= '<p><strong>Time:</strong> '.round($profile->getElapsedSecs()*1000, 2).' ms'.$this->getLinebreak();
+                    $html .= '<p><strong>Time:</strong> ' . round($profile->getElapsedSecs() * 1000, 2) . ' ms';
 
-                    $supportedAdapter = ($adapter instanceof Zend_Db_Adapter_Mysqli
-                        || $adapter instanceof Zend_Db_Adapter_Pdo_Mysql);
+                    $supportedAdapter = ($adapter instanceof Zend_Db_Adapter_Mysqli || $adapter instanceof Zend_Db_Adapter_Pdo_Mysql);
 
-                    # Run explain if enabled, supported adapter and SELECT query
+                    // Run explain if enabled, supported adapter and SELECT query
                     if ($this->_explain && $supportedAdapter && Zend_Db_Profiler::SELECT == $profile->getQueryType()) {
-                        $explain = $adapter->fetchRow('EXPLAIN '.$profile->getQuery());
-                        $html .= '<strong>Type:</strong> '.strtolower($explain['select_type']).', '.$explain['type'].$this->getLinebreak()
-                                .'<strong>Possible Keys:</strong> '.$explain['possible_keys'].$this->getLinebreak()
-                                .'<strong>Key Used:</strong> '.$explain['key'].$this->getLinebreak()
-                                .'<strong>Rows:</strong> '.$explain['rows'].$this->getLinebreak()
-                                .'<strong>Extra:</strong> '.$explain['Extra'];
+
+                        $explain = $adapter->fetchRow('EXPLAIN ' . $profile->getQuery());
+
+                        $html .= '<table>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Select Type</th>
+                                        <th>Table</th>
+                                        <th>Type</th>
+                                        <th>Possible Keys</th>
+                                        <th>Key</th>
+                                        <th>Key Length</th>
+                                        <th>Reference</th>
+                                        <th>Rows</th>
+                                        <th>Extra</th>
+                                    </tr>';
+
+                        // Loop through Explain Array
+                        $html .= '  <tr>
+                                        <td>' . $explain['id'] . '</td>
+                                        <td>' . $explain['select_type'] . '</td>
+                                        <td>' . $explain['table'] . '</td>
+                                        <td>' . $explain['type'] .' </td>
+                                        <td>' . $explain['possible_keys'] . '</td>
+                                        <td>' . $explain['key'] . '</td>
+                                        <td>' . $explain['key_len'] . '</td>
+                                        <td>' . $explain['ref'] . '</td>
+                                        <td>' . $explain['rows'] . '</td>
+                                        <td>' . $explain['Extra'] . '</td>
+                                    </tr>';
+
+                        $html .= '</table>';
                     }
 
                     $html .= '</p></li>';
@@ -178,4 +204,5 @@ class CodeBlender_Controller_Plugin_Debug_Plugin_Database extends CodeBlender_Co
 
         return $html;
     }
+
 }

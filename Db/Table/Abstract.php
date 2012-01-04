@@ -10,14 +10,12 @@
  */
 
 /**
- * DB Class
+ * CodeBlender
  *
  * @category  CodeBlender
  * @package   DB
  * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license   http://codeblender.net/license
- *
- * @todo Insert and Update use field names - should be configurable
  */
 abstract class CodeBlender_Db_Table_Abstract extends Zend_Db_Table_Abstract
 {
@@ -43,6 +41,16 @@ abstract class CodeBlender_Db_Table_Abstract extends Zend_Db_Table_Abstract
     const REGEX_DATETIME_OR_EMPTY = '/^(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d)?$/';
 
     /**
+     * Request params
+     */
+    protected $params = null;
+
+    /**
+     * Validation Output
+     */
+    public $escapedOutput = false;
+
+    /**
      * Construct the parent optios
      *
      * @param $config
@@ -55,12 +63,13 @@ abstract class CodeBlender_Db_Table_Abstract extends Zend_Db_Table_Abstract
     /**
      * Overide the Zend Abstract to create the Table name
      *
+     * Table name matches the last part of the classname (after the _), lowercase.
+     * So we strtolower, then strip off everything up to and including the last underscore.
+     *
      * @return void
      */
     protected function _setupTableName()
     {
-        // Table name matches the last part of the classname (after the _), lowercase.
-        // So we strtolower, then strip off everything up to and including the last underscore.
         $this->_name = preg_replace('/.*_/', '', strtolower(get_class($this)));
         parent::_setupTableName();
     }
@@ -77,44 +86,103 @@ abstract class CodeBlender_Db_Table_Abstract extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Method to count the rows in this table
-     */
-    public function getCount()
-    {
-        $select = $this->select()
-            ->from($this, array('total' => 'COUNT(*)'))
-            ->where('status = ?', 'Active');
-
-        $row = $this->fetchRow($select);
-        return $row->total;
-    }
-
-    /**
-     * Gets all the table results.
-     * Uses some request parameters to control sorting and limit.
+     * Get Count
      *
      * @param  int    $limit
      * @param  int    $start
      * @return object
      */
-    public function getAll($limit = false, $start = false)
+    public function getCount($limit = false, $start = false)
     {
+        // Params
         $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
 
-        // Query to get all the table results
         $select = $this->select()
-            ->where('status = ?', 'Active');
+                ->from($this, array('total' => 'COUNT(*)'))
+                ->where('status = ?', 'Active');
 
-        // Create the sorting options
+        // Filter
+        if (!empty($params['filterKey']) && !filter_var($params['filter'], FILTER_VALIDATE_BOOLEAN)) {
+            $select->where($params['filterKey'] . ' ?', $params['filter']);
+        }
+
+        // Filter Array
+        if (!empty($params['filterArray'])) {
+
+            $i = 1;
+
+            foreach ($params['filterArray'] as $k => $v) {
+
+                if ($i == 1) {
+                    $select->where($k . ' ?', $v);
+                } else {
+                    $select->orwhere($k . ' ?', $v);
+                }
+
+                $i++;
+            }
+        }
+
+        // Limit
+        if (is_numeric($limit) && is_numeric($start)) {
+            $select->limit($limit, $start);
+        } elseif ((!empty($params['limit']) && is_numeric($params['limit'])) && (!empty($params['start']) && is_numeric($params['start']))) {
+            $select->limit($params['limit'], $params['start']);
+        }
+
+        // Fetch Row
+        $row = $this->fetchRow($select);
+
+        return $row->total;
+    }
+
+    /**
+     * Get All
+     *
+     * @param  string $columns
+     * @param  int    $limit
+     * @param  int    $start
+     * @return object
+     */
+    public function getAll($columns = '*', $limit = false, $start = false)
+    {
+        // Params
+        $params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+
+        $select = $this->select()
+                ->from($this, $columns)
+                ->where('status = ?', 'Active');
+
+        // Filter
+        if (!empty($params['filter']) && !empty($params['filterKey'])) {
+            $select->where($params['filterKey'] . ' ?', $params['filter']);
+        }
+
+        // Filter Array
+        if (!empty($params['filterArray'])) {
+
+            $i = 1;
+
+            foreach ($params['filterArray'] as $k => $v) {
+
+                if ($i == 1) {
+                    $select->where($k . ' ?', $v);
+                } else {
+                    $select->orwhere($k . ' ?', $v);
+                }
+
+                $i++;
+            }
+        }
+
+        // Sort
         if (!empty($params['sort']) && preg_match('/^\w+$/', $params['sort']) && !empty($params['dir']) && ($params['dir'] == 'ASC' || $params['dir'] == 'DESC')) {
             $select->order($params['sort'] . ' ' . $params['dir']);
         }
 
-        // Create the limit options from the method attributes
+        // Limit
         if (is_numeric($limit) && is_numeric($start)) {
             $select->limit($limit, $start);
-
-            // Use the reqyest params
         } elseif ((!empty($params['limit']) && is_numeric($params['limit'])) && (!empty($params['start']) && is_numeric($params['start']))) {
             $select->limit($params['limit'], $params['start']);
         }
@@ -126,30 +194,31 @@ abstract class CodeBlender_Db_Table_Abstract extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Override method to insert the row
+     * Insert
      *
      * @param  array $data
+     * @return mixed
      */
     public function insert($data)
     {
-        // Add a time stamp
+        // Creation Date Timestamp
         if (empty($data['creation_date'])) {
             $data['creation_date'] = time();
         }
 
+        // Validate the data
         $valid = $this->validate($data);
 
-        // Validate the data
         if ($valid === true) {
-            $result = parent::insert($data);
+            $result = parent::insert($data, 'insert');
             return $result;
         } else {
-            throw new Exception('Cannot insert ' . $this->_name . ' because validation failed: ' . $valid);
+            throw new Zend_Exception('Cannot insert into table ' . $this->_name . ' because validation failed: ' . $valid);
         }
     }
 
     /**
-     * Override method to update the row
+     * Update
      *
      * @param  array  $data
      * @param  string $where
@@ -162,19 +231,19 @@ abstract class CodeBlender_Db_Table_Abstract extends Zend_Db_Table_Abstract
             $where = 'id = ' . intval($data['id']);
         }
 
-        // Add a time stamp
+        // Revision Date Timestamp
         if (empty($data['revision_date'])) {
             $data['revision_date'] = time();
         }
 
-        $valid = $this->validate($data);
-
         // Validate the data
+        $valid = $this->validate($data, 'update');
+
         if ($valid === true) {
             $result = parent::update($data, $where);
             return $result;
         } else {
-            throw new Exception('Cannot update ' . $this->_name . ' because validation failed: ' . $valid);
+            throw new Zend_Exception('Cannot update ' . $this->_name . ' because validation failed: ' . $valid);
         }
     }
 
@@ -185,4 +254,33 @@ abstract class CodeBlender_Db_Table_Abstract extends Zend_Db_Table_Abstract
      * @return void
      */
     public abstract function validate($data);
+
+    /**
+     * Validation Process
+     */
+    public function validateProcess($filters, $validators, $data)
+    {
+        // Process the Data through the Filter and Validators
+        $input = new Zend_Filter_Input($filters, $validators, $data);
+
+        // Data Valid
+        if ($input->isValid()) {
+
+            // Get filtered output
+            $this->escapedOutput = $input->getEscaped();
+            return true;
+
+            // Not Valid send messages
+        } else {
+
+            $message = '';
+
+            foreach ($input->getMessages() as $k => $v) {
+                $message .= $v[key($v)] . ' | ';
+            }
+
+            return rtrim($message, ' | ');
+        }
+    }
+
 }

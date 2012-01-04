@@ -13,18 +13,17 @@
  * Helper
  *
  * <code>
- * // Tweet Button
- * echo $this->tweetButton();
+ * // Plus Button
+ * echo $this->google_PlusButton();
  * </code>
  *
  * @category   CodeBlender
  * @package    Helper
  * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://codeblender.net/license
- * @see        http://twitter.com/about/resources/tweetbutton
- * @see        https://dev.twitter.com/docs/tweet-button
+ * @see        http://www.google.com/webmasters/+1/button/
  */
-class CodeBlender_View_Helper_TweetButton extends Zend_View_Helper_Abstract
+class CodeBlender_View_Helper_Google_PlusButton extends Zend_View_Helper_Abstract
 {
 
     /**
@@ -67,31 +66,27 @@ class CodeBlender_View_Helper_TweetButton extends Zend_View_Helper_Abstract
     /**
      * Tweet Button
      */
-    public function tweetButton($params = array())
+    public function google_PlusButton($params = array())
     {
         // Merge the two arrays to overwrite default values.
         $params = array_merge(get_class_vars(__CLASS__), $params);
 
-        if (!$params['byo']) {
+        $string = <<<HTML
 
-            $string = <<<HTML
-                <a href="http://twitter.com/share"
-                    class="twitter-share-button"
-                    data-url="{$params['URL']}"
-                    data-text="{$params['text']}"
-                    data-lang="{$params['language']}"
-                    data-count="{$params['count']}">Tweet</a>
+            <script type='text/javascript'>
+              window.___gcfg = {lang: 'en-GB'};
 
-                <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+              (function() {
+                var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                po.src = 'https://apis.google.com/js/plusone.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+              })();
+            </script>
+
+            <!-- Place this tag where you want the +1 button to render -->
+            <g:plusone size='small' count='false' href='http://www.zxclasses.com'></g:plusone>
+
 HTML;
-        } else {
-
-            $params['text'] = urlencode($params['text']);
-
-            $string = <<<HTML
-                http://twitter.com/share?url={$params['URL']}&amp;text={$params['text']}&amp;related={$params['related']}
-HTML;
-        }
 
         return $string;
     }

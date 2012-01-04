@@ -117,7 +117,7 @@ class CodeBlender_Controller_Plugin_Debug_Plugin_CodeBlender implements CodeBlen
             </p>
 
 			<p>
-				&copy;2010-{$date}
+				&copy;{$date}
 
 				<a href="http://www.triangle-solutions.com/" title="Triangle Solutions Ltd">
 					Triangle Solutions Ltd

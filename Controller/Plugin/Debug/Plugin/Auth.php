@@ -5,7 +5,7 @@
  *
  * @category   CodeBlender
  * @package    Plugin
- * @copyright  Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://www.codeblender.net/license
  */
 
@@ -14,7 +14,7 @@
  *
  * @category   CodeBlender
  * @package    Plugin
- * @copyright  Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://www.codeblender.net/license
  */
 class CodeBlender_Controller_Plugin_Debug_Plugin_Auth implements CodeBlender_Controller_Plugin_Debug_Plugin_Interface

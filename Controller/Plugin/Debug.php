@@ -231,73 +231,73 @@ class CodeBlender_Controller_Plugin_Debug extends Zend_Controller_Plugin_Abstrac
         $view->headScript()->captureStart('PREPEND');
         ?>
         if (typeof jQuery == "undefined") {
-            var scriptObj  = document.createElement("script");
-            scriptObj.src  = "<?php echo $this->_options['jqueryPath']; ?>";
-            scriptObj.type = "text/javascript";
-            var head=document.getElementsByTagName("head")[0];
-            head.insertBefore(scriptObj,head.firstChild);
+        var scriptObj  = document.createElement("script");
+        scriptObj.src  = "<?php echo $this->_options['jqueryPath']; ?>";
+        scriptObj.type = "text/javascript";
+        var head=document.getElementsByTagName("head")[0];
+        head.insertBefore(scriptObj,head.firstChild);
         }
 
         var CodeBlenderLoad = window.onload;
 
         window.onload = function()
         {
-            if (CodeBlenderLoad) {
-                CodeBlenderLoad();
-            }
+        if (CodeBlenderLoad) {
+        CodeBlenderLoad();
+        }
 
-            CodeBlenderCollapsed();
+        CodeBlenderCollapsed();
         };
 
         function CodeBlenderCollapsed()
         {
-            if (<?php echo $collapsed; ?> == 1) {
-                CodeBlenderPanel();
-                jQuery("#CodeBlender_toggler").html('&#187;');
-                return jQuery("#CodeBlender_debug").css("left", "-" + parseInt(jQuery("#CodeBlender_debug").outerWidth() - jQuery("#CodeBlender_toggler").outerWidth() + 1) + "px");
-            }
+        if (<?php echo $collapsed; ?> == 1) {
+        CodeBlenderPanel();
+        jQuery("#CodeBlender_toggler").html('&#187;');
+        return jQuery("#CodeBlender_debug").css("left", "-" + parseInt(jQuery("#CodeBlender_debug").outerWidth() - jQuery("#CodeBlender_toggler").outerWidth() + 1) + "px");
+        }
         }
 
         function CodeBlenderPanel(name)
         {
-            jQuery(".CodeBlender_panel").each(function(i) {
-                if (jQuery(this).css("display") == "block") {
-                    jQuery(this).slideUp();
-                } else {
-                    if (jQuery(this).attr("id") == name) {
-                        jQuery(this).slideDown();
-                    } else {
-                        jQuery(this).slideUp();
-                    }
-                }
-            });
+        jQuery(".CodeBlender_panel").each(function(i) {
+        if (jQuery(this).css("display") == "block") {
+        jQuery(this).slideUp();
+        } else {
+        if (jQuery(this).attr("id") == name) {
+        jQuery(this).slideDown();
+        } else {
+        jQuery(this).slideUp();
+        }
+        }
+        });
         }
 
         function CodeBlenderSlideBar()
         {
-            if (jQuery("#CodeBlender_debug").position().left > 0) {
-                document.cookie = "CodeBlenderCollapsed=1;expires=;path=/";
-                CodeBlenderPanel();
-                jQuery("#CodeBlender_toggler").html('&#187;');
-                return jQuery("#CodeBlender_debug").animate({left:"-" + parseInt(jQuery("#CodeBlender_debug").outerWidth() - jQuery("#CodeBlender_toggler").outerWidth() + 1) + "px"}, "normal", "swing");
-            } else {
-                document.cookie = "CodeBlenderCollapsed=0;expires=;path=/";
-                jQuery("#CodeBlender_toggler").html('&#171;');
-                return jQuery("#CodeBlender").animate({left:"5px"}, "normal", "swing");
-            }
+        if (jQuery("#CodeBlender_debug").position().left > 0) {
+        document.cookie = "CodeBlenderCollapsed=1;expires=;path=/";
+        CodeBlenderPanel();
+        jQuery("#CodeBlender_toggler").html('&#187;');
+        return jQuery("#CodeBlender_debug").animate({left:"-" + parseInt(jQuery("#CodeBlender_debug").outerWidth() - jQuery("#CodeBlender_toggler").outerWidth() + 1) + "px"}, "normal", "swing");
+        } else {
+        document.cookie = "CodeBlenderCollapsed=0;expires=;path=/";
+        jQuery("#CodeBlender_toggler").html('&#171;');
+        return jQuery("#CodeBlender").animate({left:"5px"}, "normal", "swing");
+        }
         }
 
         function CodeBlenderToggleElement(name, whenHidden, whenVisible)
         {
-            if (jQuery(name).css("display") == "none") {
-                jQuery(whenVisible).show();
-                jQuery(whenHidden).hide();
-            } else {
-                jQuery(whenVisible).hide();
-                jQuery(whenHidden).show();
-            }
+        if (jQuery(name).css("display") == "none") {
+        jQuery(whenVisible).show();
+        jQuery(whenHidden).hide();
+        } else {
+        jQuery(whenVisible).hide();
+        jQuery(whenHidden).show();
+        }
 
-            jQuery(name).slideToggle();
+        jQuery(name).slideToggle();
         }
         <?php
         $view->headScript()->captureEnd();

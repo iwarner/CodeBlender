@@ -35,7 +35,7 @@
  *     ["timezone"] => int(9)
  *     ["locale"] => string(5) "en_GB"
  *     ["verified"] => bool(true)
- *     ["updated_time"] => string(24) "2010-07-29T11:05:45+0000"
+ *     ["updated_time"] => string(24) "2011-07-29T11:05:45+0000"
  *
  * @category  CodeBlender
  * @package   Plugin

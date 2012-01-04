@@ -4,17 +4,8 @@
  * CodeBlender
  *
  * @category  CodeBlender
-<<<<<<< HEAD
- * @package   CodeBlender_ExtJS
-<<<<<<< HEAD
- * @copyright Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
-=======
  * @package   ExtJS
  * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
->>>>>>> d539a4e... refactored helpers in CodeBlender
-=======
- * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
->>>>>>> 173b71bdcc66c2b9dba9c5362e8bc62d78bc7ff0
  * @license   http://codeblender.net/license
  */
 
@@ -28,17 +19,8 @@
  * extjs.enabled = true
  *
  * @category  CodeBlender
-<<<<<<< HEAD
- * @package   CodeBlender_ExtJS
-<<<<<<< HEAD
- * @copyright Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
-=======
  * @package   ExtJS
  * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
->>>>>>> d539a4e... refactored helpers in CodeBlender
-=======
- * @copyright Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
->>>>>>> 173b71bdcc66c2b9dba9c5362e8bc62d78bc7ff0
  * @license   http://codeblender.net/license
  */
 class CodeBlender_ExtJS

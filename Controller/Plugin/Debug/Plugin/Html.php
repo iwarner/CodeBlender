@@ -1,10 +1,11 @@
 <?php
+
 /**
  * CodeBlender
  *
  * @category   CodeBlender
  * @package    Plugin
- * @copyright  Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://www.codeblender.net/license
  */
 
@@ -13,11 +14,12 @@
  *
  * @category   CodeBlender
  * @package    Plugin
- * @copyright  Copyright (c) 2000-2010 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
+ * @copyright  Copyright (c) 2011 Triangle Solutions Ltd. (http://www.triangle-solutions.com/)
  * @license    http://www.codeblender.net/license
  */
 class CodeBlender_Controller_Plugin_Debug_Plugin_Html implements CodeBlender_Controller_Plugin_Debug_Plugin_Interface
 {
+
     /**
      * Contains plugin identifier name
      *
@@ -63,28 +65,38 @@ class CodeBlender_Controller_Plugin_Debug_Plugin_Html implements CodeBlender_Con
     public function getPanel()
     {
         $body = Zend_Controller_Front::getInstance()->getResponse()->getBody();
+        $length = round(strlen($body)/1024, 2);
 
-        $panel  = '<h4>HTML Information</h4>';
-        $panel .= '
-        <script type="text/javascript" charset="utf-8">
-            var CodeBlenderHtmlLoad = window.onload;
-            window.onload = function(){
-                if (CodeBlenderHtmlLoad) {
-                    CodeBlenderHtmlLoad();
-                }
-                jQuery("#CodeBlender_Html_Tagcount").html(document.getElementsByTagName("*").length);
-                jQuery("#CodeBlender_Html_Stylecount").html(jQuery("link[rel*=stylesheet]").length);
-                jQuery("#CodeBlender_Html_Scriptcount").html(jQuery("script[src]").length);
-                jQuery("#CodeBlender_Html_Imgcount").html(jQuery("img[src]").length);
-            };
-        </script>';
-        $panel .= '<span id="CodeBlender_Html_Tagcount"></span> Tags<br />'
-                . 'HTML Size: '.round(strlen($body)/1024, 2).'K<br />'
-                . '<span id="CodeBlender_Html_Stylecount"></span> Stylesheet Files<br />'
-                . '<span id="CodeBlender_Html_Scriptcount"></span> Javascript Files<br />'
-                . '<span id="CodeBlender_Html_Imgcount"></span> Images<br />'
-                . '<form method="POST" action="http://validator.w3.org/check" target="_blank"><input type="hidden" name="fragment" value="'.htmlentities($body).'"><input type="submit" value="Validate With W3"></form>';
+        $panel = <<<HTML
+
+            <h4>HTML Information</h4>
+
+            <script type="text/javascript" charset="utf-8">
+
+                var CodeBlenderHtmlLoad = window.onload;
+
+                window.onload = function()
+                {
+                    if (CodeBlenderHtmlLoad) {
+                        CodeBlenderHtmlLoad();
+                    }
+
+                    jQuery("#CodeBlender_Html_Tagcount").html(document.getElementsByTagName("*").length);
+                    jQuery("#CodeBlender_Html_Stylecount").html(jQuery("link[rel*=stylesheet]").length);
+                    jQuery("#CodeBlender_Html_Scriptcount").html(jQuery("script[src]").length);
+                    jQuery("#CodeBlender_Html_Imgcount").html(jQuery("img[src]").length);
+                };
+            </script>
+
+            <span id="CodeBlender_Html_Tagcount"></span>
+            Tags<br />
+            HTML Size: {$length}K<br />
+            <span id="CodeBlender_Html_Stylecount"></span> Stylesheet Files<br />
+            <span id="CodeBlender_Html_Scriptcount"></span> Javascript Files<br />
+            <span id="CodeBlender_Html_Imgcount"></span> Images<br />
+HTML;
 
         return $panel;
     }
+
 }

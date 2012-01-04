@@ -40,17 +40,16 @@ class CodeBlender_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
             $role = 'guest';
         }
 
-        // Check if they can view the Module - Controller - Action combination.
-        if ($acl->has($request->getParam('module') . $request->getParam('controller') . $request->getParam('action'))) {
-            $access = $acl->isAllowed($role, $request->getParam('module') . $request->getParam('controller') . $request->getParam('action'), 'view');
+        // Check if they can view the Module
+        if ($acl->has($request->getParam('module'))) {
 
-            // Check if they can view the Module - Controller combination.
-        } elseif ($acl->has($request->getParam('module') . $request->getParam('controller'))) {
-            $access = $acl->isAllowed($role, $request->getParam('module') . $request->getParam('controller'), 'view');
-
-            // // Check if they can view the Module
-        } elseif ($acl->has($request->getParam('module'))) {
             $access = $acl->isAllowed($role, $request->getParam('module'), 'view');
+        } elseif ($acl->has($request->getParam('module') . $request->getParam('controller'))) {
+
+            $access = $acl->isAllowed($role, $request->getParam('module') . $request->getParam('controller'), 'view');
+        } elseif ($acl->has($request->getParam('module') . $request->getParam('controller') . $request->getParam('action'))) {
+
+            $access = $acl->isAllowed($role, $request->getParam('module') . $request->getParam('controller') . $request->getParam('action'), 'view');
         }
 
         // If the user has no access then redirect them to the specified login page
@@ -63,7 +62,7 @@ class CodeBlender_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
             if (isset($config['noAccess'])) {
                 $request->setModuleName($config['noAccess']['module'])->setControllerName($config['noAccess']['controller'])->setActionName($config['noAccess']['action']);
             } else {
-                $request->setModuleName('user')->setControllerName('login')->setActionName('index');
+                $request->setModuleName('core')->setControllerName('login')->setActionName('index');
             }
         }
 

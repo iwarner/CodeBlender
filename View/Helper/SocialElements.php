@@ -29,17 +29,15 @@ class CodeBlender_View_Helper_SocialElements extends Zend_View_Helper_Abstract
             <div class="socialElements">
 
                 <div class="facebookLike">
-                    {$this->view->facebookLike(array('layout' => 'button_count'))}
+                    {$this->view->facebook_LikeButton(array('layout' => 'button_count'))}
                 </div>
 
                 <div class="twitterLike">
-                    <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="SocialTriangle">Tweet</a>
-                    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+                    {$this->view->tweetButton(array('count' => 'horizontal', 'via' => 'SocialTriangle'))}
                 </div>
 
                 <div class="buzzLike">
-                    <a title="Post to Google Buzz" class="google-buzz-button" href="http://www.google.com/buzz/post" data-button-style="small-count"></a>
-                    <script type="text/javascript" src="http://www.google.com/buzz/api/button.js"></script>
+                    {$this->view->google_PlusButton()}
                 </div>
 
             </div>
